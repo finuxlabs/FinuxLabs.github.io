@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="An observation of campus payments, settlement and treasury as a potential growth segment for Float Financial.">
+  <title>Campus Payments and Settlement — A Growth Segment Observation</title>
+  <style>
+    :root {
+      --ink: #203c4e;
+      --muted: #5e727d;
+      --paper: #fcfbf7;
+      --green: #237b51;
+      --line: #dce4e4
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 18px/1.75 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif
+    }
+
+    main {
+      max-width: 1160px;
+      margin: auto;
+      padding: 62px 30px 40px
+    }
+
+    .eyebrow {
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 750;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      margin: 0 0 15px
+    }
+
+    h1 {
+      font-size: clamp(28px, 4.2vw, 46px);
+      line-height: 1.15;
+      letter-spacing: -.03em;
+      max-width: 920px;
+      margin: 0 0 22px
+    }
+
+    h2 {
+      font-size: 27px;
+      line-height: 1.3;
+      letter-spacing: -.02em;
+      margin: 44px 0 15px
+    }
+
+    .lead {
+      font-size: 23px;
+      line-height: 1.55;
+      max-width: 850px;
+      color: var(--muted);
+      margin-bottom: 20px
+    }
+
+    .byline {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 12px
+    }
+
+    .role-objective {
+      font-size: 14px;
+      color: var(--ink);
+      text-align: center;
+      margin: 0 0 32px
+    }
+
+    .role-objective a.job-link {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-weight: 600
+    }
+
+    .role-objective a.job-link:hover {
+      color: var(--ink)
+    }
+
+    .role-objective a.resume-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      vertical-align: middle;
+      background: #1f281f;
+      color: #f5f3ea;
+      text-decoration: none;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.2;
+      margin-left: 4px;
+      transition: background .15s ease
+    }
+
+    .role-objective a.resume-btn:hover {
+      background: #2b382b
+    }
+
+    .role-objective a.resume-btn svg {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0
+    }
+
+    .role-objective a.docx-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      vertical-align: middle;
+      color: var(--green);
+      text-decoration: none;
+      margin-left: 6px;
+      padding: 4px 8px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font-size: 12px;
+      line-height: 1.2;
+      background: white
+    }
+
+    .role-objective a.docx-link:hover {
+      border-color: var(--green)
+    }
+
+    .role-objective a.docx-link svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0
+    }
+
+    figure {
+      margin: 28px 0 45px
+    }
+
+    figure a {
+      display: block;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: white
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto
+    }
+
+    figcaption {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin-top: 10px
+    }
+
+    article {
+      max-width: 820px;
+      margin: 0 auto
+    }
+
+    p {
+      margin: 0 0 20px
+    }
+
+    strong {
+      font-weight: 650
+    }
+
+    .wide {
+      margin: 40px -140px
+    }
+
+    .closing {
+      font-size: 21px;
+      color: var(--green);
+      line-height: 1.65;
+      margin-top: 34px
+    }
+
+    footer {
+      max-width: 820px;
+      margin: 38px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    .transform-indicator {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: -18px auto 16px;
+      color: var(--green)
+    }
+
+    .transform-indicator::before,
+    .transform-indicator::after {
+      content: "";
+      width: 2px;
+      height: 18px;
+      background: repeating-linear-gradient(to bottom, var(--green) 0, var(--green) 4px, transparent 4px, transparent 8px)
+    }
+
+    .transform-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 14px;
+      border: 1.5px solid var(--green);
+      border-radius: 999px;
+      background: white;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase
+    }
+
+    .transform-badge svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0
+    }
+
+    @media(max-width:1000px) {
+      .wide {
+        margin: 32px 0
+      }
+    }
+
+    @media(max-width:600px) {
+      main {
+        padding: 32px 20px
+      }
+
+      body {
+        font-size: 17px
+      }
+
+      .lead {
+        font-size: 20px
+      }
+
+      h2 {
+        font-size: 24px;
+        margin-top: 34px
+      }
+
+      figure {
+        margin-bottom: 30px
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+        font-size: 11pt
+      }
+
+      main {
+        padding: 0;
+        max-width: none
+      }
+
+      h1 {
+        font-size: 24pt
+      }
+
+      h2 {
+        break-after: avoid;
+        font-size: 17pt
+      }
+
+      figure {
+        break-inside: avoid
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none
+      }
+
+      .wide {
+        margin: 24px 0
+      }
+
+      .lead {
+        font-size: 15pt
+      }
+
+      footer {
+        font-size: 9pt
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">Market observation</p>
+      <h1>Campus payments and settlement as a potential growth segment</h1>
+      <p class="lead">A typical campus connects student payments, departmental commerce and merchant activity. Together,
+        these flows reveal a broader financial relationship spanning collection, settlement, treasury and accounting.
+      </p>
+      <p class="byline">Terence Ju He · Brief edition</p>
+      <p class="role-objective">Role Objective with Float Financial: <a class="job-link" href="https://jobs.ashbyhq.com/Float/3760e99f-fd78-4f46-9187-e444badfd11c" target="_blank" rel="noopener">Senior Product Manager, Financial Infrastructure</a> · <a class="resume-btn" href="Terence_Heju_Senior_Product_Manager_Resume.html" target="_blank" rel="noopener"><span>Online Resume</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12L12 4"/><path d="M6 4h6v6"/></svg></a><a class="docx-link" href="Terence%20applying%20on%20Senior%20Product%20manager.docx" download title="Download Word (.docx) resume" aria-label="Download Word version of resume"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/></svg><span>DOCX</span></a></p>
+    </header>
+    <!-- INTRO IMAGE: Float_Campus_Payment_Network_Cartoon.png. Set imageLinks.intro below when a hosted URL is available. -->
+    <figure id="intro-illustration">
+      <a id="intro-link" href="Float_Campus_Payment_Network_Cartoon.png" target="_blank" rel="noopener"
+        aria-label="View the illustrated campus payment network"><img id="intro-image"
+          src="Float_Campus_Payment_Network_Cartoon.png"
+          alt="Cartoon participants and payment points connected through collection partners to a Float-supported treasury environment, with green fund flows and dashed blue information flows."></a>
+      <figcaption>An illustrated view of campus participants, payment points and the relationship between fund flows and
+        information flows.</figcaption>
+    </figure>
+    <article>
+      <h2>A campus is a connected payment environment</h2>
+      <p>Tuition, housing, university services and merchant sales begin at different payment points. Their financial
+        consequences continue beyond checkout: receipts arrive, settlement batches are reconciled, balances are
+        allocated and accounting records are updated. Seen together, these activities form a campus payment network
+        rather than a set of isolated transactions.</p>
+      <h2>Four collection inflows</h2>
+      <p>The <strong>student service portal</strong> brings together tuition and housing payments. <strong>University
+          web stores</strong> support departmental commerce, including events, courses and services. <strong>Third-party
+          merchant ecommerce</strong> connects independent online sellers with the campus community, while
+        <strong>campus merchant stores</strong> generate in-person sales through checkout and point-of-sale systems.</p>
+      <p>Each channel has its own customer experience and collection arrangements. Across them, a recurring need is to
+        connect the original charge or order with payment status, settlement evidence and the account entitled to
+        receive the funds.</p>
+      <h2>From payment activity to a treasury relationship</h2>
+      <p>For Float, this environment represents a potential growth segment adjacent to corporate cards, business
+        accounts and payment services. The broader relationship extends from individual spending activity to the
+        coordination of incoming receipts, retained operating balances and subsequent payments. Merchant acceptance
+        would involve collection partners; the campus-wide coordination described here is a potential extension of that
+        foundation.</p>
+      <p>A <strong>Float-supported treasury repository</strong> describes the account environment where entitled campus
+        participants could receive, retain and use operating receipts. University balances and independent merchant
+        balances remain separately owned. Retaining receipts connects incoming payments with continuing treasury
+        activity; those customer funds remain distinct from Float’s own income.</p>
+      <h2>Reconciliation and ERP complete the connection</h2>
+      <p>Collection partner reconciliation links payment references, provider records, fees and deposits. ERP
+        integration connects those movements with student receivables, departmental accounting and the general ledger,
+        while merchants retain their own books. This creates continuity between a payment at the edge of the campus and
+        the financial records used by treasury and operations.</p>
+      <p class="closing">The potential growth segment lies in the whole financial relationship: campus commerce feeding
+        collection, settlement, retained operating balances and authorised spending, connected through treasury
+        workflows and ERP.</p>
+    </article>
+    <footer>Observation of a potential growth segment within a typical campus ecosystem.</footer>
+    <figure id="source-illustration" style="max-width: 856px; margin: 36px auto 24px;">
+      <a id="source-link" href="Float_Example_Campus_Payment_Network.png" target="_blank" rel="noopener"
+        aria-label="View the original source analysis diagram"><img id="source-image"
+          src="Float_Example_Campus_Payment_Network.png" loading="lazy"
+          alt="Original source of analysis: Example campus payment network diagram"></a>
+      <figcaption>Original source of analysis.</figcaption>
+    </figure>
+    <div class="transform-indicator" aria-label="Transforming to redrawn campus payment view">
+      <span class="transform-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16"/><path d="m6 14 6 6 6-6"/></svg>
+        <span>Transforming</span>
+      </span>
+    </div>
+    <figure id="redrawn-illustration" style="max-width: 856px; margin: 16px auto 45px;">
+      <a id="redrawn-link" href="Campus_TouchNet_Original_Redrawn.png" target="_blank" rel="noopener"
+        aria-label="View the transformed redrawn campus payment network diagram"><img id="redrawn-image"
+          src="Campus_TouchNet_Original_Redrawn.png" loading="lazy"
+          alt="Transformation view from the original campus payment network diagram"></a>
+      <figcaption>Transformed view from the original campus payment network diagram.</figcaption>
+    </figure>
+  </main>
+  <script>
+    // Replace these empty strings with your hosted diagram links when ready.
+    const imageLinks = {
+      intro: "Float_Campus_Payment_Network_Cartoon.png", // Float_Campus_Payment_Network_Cartoon.png
+      source: "Float_Example_Campus_Payment_Network.png", // Float_Example_Campus_Payment_Network.png
+      redrawn: "Campus_TouchNet_Original_Redrawn.png" // Campus_TouchNet_Original_Redrawn.png
+    };
+    for (const [name, url] of Object.entries(imageLinks)) {
+      const img = document.getElementById(name + "-image");
+      const link = document.getElementById(name + "-link");
+      if (url) { img.src = url; link.href = url; link.target = "_blank"; link.rel = "noopener"; }
+    }
+  </script>
+</body>
+
+</html>
