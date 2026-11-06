@@ -1489,9 +1489,28 @@
             font-size: 0.82rem;
             font-weight: 600;
             color: #2D4A53;
+            text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            transition: all 0.15s ease;
+        }
+
+        a.summit-tag {
+            background: rgba(193, 68, 36, 0.11);
+            border: 1.5px solid #C14424;
+            color: #C14424;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(193, 68, 36, 0.15);
+            cursor: pointer;
+        }
+
+        a.summit-tag:hover {
+            background: #C14424;
+            border-color: #C14424;
+            color: #FFFFFF;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(193, 68, 36, 0.28);
         }
 
         .summit-cta-box {
@@ -3080,7 +3099,7 @@
                         </div>
                         <h1 class="slide16-hero-title">Procurement <span class="summit-mark">a<span>i</span></span> in<br><span class="slide16-hero-accent">AI Summit<br>Vancouver 2026</span></h1>
                         <div class="summit-meta-tags">
-                            <span class="summit-tag"><i class="fa-solid fa-brain"></i> Agentic Procurement</span>
+                            <a href="https://procurement-lead.ca/" target="_blank" rel="noopener" class="summit-tag"><i class="fa-solid fa-brain"></i> <span>Agentic Procurement</span> <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.72rem; margin-left: 2px;"></i></a>
                             <span class="summit-tag"><i class="fa-solid fa-handshake"></i> Dual-Agent Negotiation</span>
                             <span class="summit-tag"><i class="fa-solid fa-location-dot"></i> Vancouver, BC</span>
                         </div>
