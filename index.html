@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finux Labs Signal — On the Trail...</title>
+    <meta http-equiv="refresh" content="24; url=docs/index.html">
+    <link rel="canonical" href="docs/index.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sky-top: #9fc7d0;
+            --sky-mid: #d3e2d9;
+            --sky-warm: #ece5cb;
+            --ink: #183440;
+            --teal: #0dbe85;
+            --teal-dark: #176c6b;
+            --terracotta: #c14424;
+            --gold: #e89b3c;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #d3e2d9;
+            color: var(--ink);
+            min-height: 100vh;
+            min-height: 100dvh;
+            overflow: hidden;
+        }
+
+        .redirect-card {
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Scene Viewport */
+        .scene-viewport {
+            position: relative;
+            left: 50%;
+            width: max(100%, 150dvh);
+            height: 100%;
+            transform: translateX(-50%);
+            background: radial-gradient(ellipse at 75% 30%, rgba(255, 242, 207, 0.8), transparent 38%),
+                        linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 65%, var(--sky-warm) 100%);
+            overflow: hidden;
+        }
+
+        .scene-viewport::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, #a9c5d3, #d6e4e6 70%, #eaf0e8);
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .scene-viewport.winter::before { opacity: 1; }
+        .mountains-far, .mountains-mid, .trees-layer {
+            transition: filter 1s ease;
+        }
+        .winter .mountains-far { filter: saturate(0.55) brightness(1.12); }
+        .winter .mountains-mid { filter: saturate(0.45) brightness(1.22); }
+        .winter .trees-layer { filter: saturate(0.65) brightness(1.12); }
+        .lake-ice { opacity: 0; transition: opacity 1s ease; }
+        .winter .lake-ice { opacity: 0.9; }
+        .fir-snow, .snow-decor, .snowfall, .snowboard, .snow-spray {
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        .winter .fir-snow, .winter .snow-decor,
+        .winter .snowfall, .winter .snowboard, .winter .snow-spray { opacity: 1; }
+        .skateboard, #meadowDecor, #creeks, #ridgeDecor, #trailGravel {
+            transition: opacity 1s ease;
+        }
+        .winter .skateboard, .winter #meadowDecor, .winter #creeks,
+        .winter #ridgeDecor, .winter #trailGravel { opacity: 0; }
+        .winter .dust-puff-1, .winter .dust-puff-2 { animation: none; opacity: 0; }
+        .winter .skate-wheel { animation-play-state: paused; }
+        #meadow stop, #terrainCrest, #trailEdge, #trailRibbon {
+            transition: stop-color 1s ease, fill 1s ease, stroke 1s ease;
+        }
+        .winter #meadow stop:nth-child(1) { stop-color: #edf5f2; }
+        .winter #meadow stop:nth-child(2) { stop-color: #d7e8e7; }
+        .winter #meadow stop:nth-child(3) { stop-color: #b7d1d6; }
+        .winter #terrainCrest { stroke: #f9fcf8; }
+        .winter #trailEdge { fill: #acc9cf; }
+        .winter #trailRibbon { fill: #e7f2ef; }
+
+        .snowfall {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 8;
+            pointer-events: none;
+        }
+        .snowfall-drift { animation: snowFall 6s linear infinite; }
+        @keyframes snowFall {
+            from { transform: translate(0, -330px); }
+            to { transform: translate(0, 0); }
+        }
+        .snow-spray-flakes {
+            animation: snowSpray 0.8s ease-out infinite;
+        }
+        @keyframes snowSpray {
+            from { transform: translate(0, 0); opacity: 0.9; }
+            to { transform: translate(-22px, -10px); opacity: 0; }
+        }
+
+        /* Glowing Sun */
+        .sun {
+            position: absolute;
+            top: 11.5%;
+            right: 12.5%;
+            width: clamp(68px, 9vw, 150px);
+            height: clamp(68px, 9vw, 150px);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 247, 215, 0.95) 0%, rgba(246, 222, 169, 0.7) 50%, rgba(246, 222, 169, 0) 75%);
+            box-shadow: 0 0 40px rgba(246, 222, 169, 0.35);
+            animation: sunPulse 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes sunPulse {
+            0% { transform: scale(0.96); opacity: 0.9; }
+            100% { transform: scale(1.06); opacity: 1; }
+        }
+
+        /* Drifting Clouds */
+        .clouds-track {
+            position: absolute;
+            top: 7.9%;
+            left: 0;
+            width: 200%;
+            height: 27.3%;
+            display: flex;
+            animation: scrollLinear 26s linear infinite;
+            pointer-events: none;
+        }
+
+        /* Distant Mountains */
+        .mountains-far {
+            position: absolute;
+            bottom: 25.45%;
+            left: 0;
+            width: 200%;
+            height: 51.52%;
+            display: flex;
+            animation: scrollLinear 18s linear infinite;
+        }
+
+        /* Midground Mountains */
+        .mountains-mid {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 64.24%;
+            display: flex;
+            align-items: flex-start;
+            /* solid foothill base fills behind the trail's deepest dips */
+            background: linear-gradient(to top, #607b6b 42.45%, transparent 42.45%);
+            animation: scrollLinear 10s linear infinite;
+        }
+
+        .alpine-lake {
+            position: absolute;
+            bottom: 23.03%;
+            left: 0;
+            width: 100%;
+            height: 25.76%;
+            pointer-events: none;
+        }
+
+        /* Pine Trees Layer */
+        .trees-layer {
+            position: absolute;
+            bottom: 17.58%;
+            left: 0;
+            width: 200%;
+            height: 28.79%;
+            display: flex;
+            animation: scrollLinear 4.2s linear infinite;
+        }
+
+        /* Foreground Rugged Mountain Trail (terrain generated in JS) */
+        .trail-terrain {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 51.52%;
+            z-index: 5;
+            overflow: visible;
+        }
+
+        .clouds-track > svg, .mountains-far > svg, .trees-layer > svg {
+            height: 100%;
+        }
+        .mountains-mid > svg { height: 66.04%; }
+
+        /* Creek wading splash */
+        .moose-splash { opacity: 0; transition: opacity 0.15s ease; }
+        .moose-stage.wading .moose-splash { opacity: 1; }
+        .moose-stage.wading .dust-puff-1,
+        .moose-stage.wading .dust-puff-2 { opacity: 0; }
+        .splash-ring {
+            transform-origin: 120px 168px;
+            animation: ringPulse 0.48s ease-out infinite;
+        }
+        @keyframes ringPulse {
+            0%   { transform: scale(0.6); opacity: 0.9; }
+            100% { transform: scale(1.15); opacity: 0; }
+        }
+        .drop { animation: dropFly 0.48s ease-out infinite; }
+        .drop.d1 { --dx: -26px; --dy: -30px; }
+        .drop.d2 { --dx: -12px; --dy: -40px; animation-delay: 0.12s; }
+        .drop.d3 { --dx: 22px;  --dy: -34px; animation-delay: 0.06s; }
+        .drop.d4 { --dx: 30px;  --dy: -22px; animation-delay: 0.2s; }
+        .drop.d5 { --dx: 4px;   --dy: -44px; animation-delay: 0.28s; }
+        @keyframes dropFly {
+            0%   { transform: translate(0, 0) scale(0.6); opacity: 0.95; }
+            100% { transform: translate(var(--dx), var(--dy)) scale(1.1); opacity: 0; }
+        }
+
+        /* Flowing creek highlights */
+        .water-flow {
+            animation: waterFlow 1.1s linear infinite;
+        }
+        .water-flow.slow {
+            animation-duration: 1.8s;
+        }
+        @keyframes waterFlow {
+            to { stroke-dashoffset: -40; }
+        }
+
+        @keyframes scrollLinear {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Moose position is driven by the terrain. */
+        .moose-stage {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            transform-origin: 50% 92.63%; /* skateboard wheel contact point */
+            transition: none;
+            width: 240px;
+            height: 190px;
+            z-index: 10;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        .moose-shadow {
+            opacity: 0.24;
+        }
+
+        .skate-wheel {
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: wheelRoll 0.45s linear infinite;
+        }
+        @keyframes wheelRoll {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Gentle antler movement */
+        .moose-antlers {
+            transform-origin: 168px 58px;
+            animation: antlerBounce 0.48s ease-in-out infinite;
+        }
+        @keyframes antlerBounce {
+            0%, 100% { transform: rotate(1deg); }
+            50%      { transform: rotate(-1deg); }
+        }
+
+        .moose-bow-tails {
+            transform-origin: 144px 38px;
+            animation: bowFlutter 0.48s ease-in-out infinite alternate;
+        }
+        @keyframes bowFlutter {
+            0%   { transform: rotate(-3deg); }
+            100% { transform: rotate(4deg); }
+        }
+
+        /* Trail Dust Puffs */
+        .dust-puff-1 {
+            animation: dustFly 0.48s ease-out infinite;
+            transform-origin: 55px 168px;
+        }
+        .dust-puff-2 {
+            animation: dustFly 0.48s ease-out 0.24s infinite;
+            transform-origin: 42px 164px;
+        }
+
+        @keyframes dustFly {
+            0%   { transform: translate(0, 0) scale(0.4); opacity: 0.85; }
+            100% { transform: translate(-38px, -14px) scale(1.35); opacity: 0; }
+        }
+
+        /* Card Footer / Status Area */
+        .redirect-info {
+            position: absolute;
+            z-index: 20;
+            right: max(24px, env(safe-area-inset-right));
+            top: max(24px, env(safe-area-inset-top));
+            width: min(340px, calc(100% - 48px));
+            padding: 20px 24px;
+            text-align: center;
+            background: rgba(255, 253, 245, 0.94);
+            border: 1px solid rgba(24, 52, 64, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 12px 36px rgba(24, 52, 64, 0.16);
+        }
+
+        .brand-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.76rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--teal-dark);
+            background: rgba(13, 190, 133, 0.12);
+            padding: 5px 14px;
+            border-radius: 999px;
+            margin-bottom: 12px;
+        }
+
+        .brand-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--teal);
+            box-shadow: 0 0 8px var(--teal);
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.65rem;
+            font-weight: 800;
+            color: var(--ink);
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 0.96rem;
+            color: #53676d;
+            margin-bottom: 20px;
+        }
+
+        /* Progress Bar */
+        .progress-track {
+            width: 100%;
+            max-width: 420px;
+            height: 8px;
+            background: #ebe8df;
+            border-radius: 999px;
+            margin: 0 auto 18px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--teal-dark) 0%, var(--teal) 60%, var(--gold) 100%);
+            border-radius: 999px;
+            animation: fillProgress 24s linear forwards;
+        }
+
+        @keyframes fillProgress {
+            0%   { width: 4%; }
+            100% { width: 100%; }
+        }
+
+        .enter-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--ink);
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 999px;
+            border: 1px solid rgba(24, 52, 64, 0.16);
+            background: #f7f4ec;
+            transition: all 0.18s ease;
+        }
+
+        .enter-btn:hover {
+            background: var(--ink);
+            color: #ffffff;
+            border-color: var(--ink);
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 600px) {
+            .redirect-info {
+                right: 16px;
+                top: max(16px, env(safe-area-inset-top));
+                width: calc(100% - 32px);
+                padding: 14px 18px;
+            }
+            h1 {
+                font-size: 1.35rem;
+            }
+            .subtitle { margin-bottom: 12px; }
+            .progress-track { margin-bottom: 12px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .scene-viewport::before,
+            .scene-viewport *,
+            .scene-viewport *::before,
+            .scene-viewport *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="redirect-card">
+        <div class="scene-viewport" aria-hidden="true">
+            <!-- Sun -->
+            <div class="sun"></div>
+
+            <!-- Drifting Clouds (seamless 2x loop) -->
+            <div class="clouds-track">
+                <svg viewBox="0 0 1520 90" width="100%" height="90" preserveAspectRatio="none">
+                    <defs>
+                        <g id="cloudTile" fill="#fffdf0">
+                            <path opacity=".58" d="M20 58 Q42 47 67 52 Q78 37 97 41 Q114 27 131 38 Q150 34 161 46 Q183 43 198 55 Q176 61 143 59 Q94 65 20 58Z"/>
+                            <path opacity=".4" d="M326 42 Q346 35 365 38 Q380 26 395 31 Q409 22 425 32 Q442 29 453 39 Q474 37 490 44 Q455 49 409 47 Q364 50 326 42Z"/>
+                            <path opacity=".5" d="M584 65 Q604 56 623 59 Q641 43 661 49 Q680 38 695 51 Q717 47 735 61 Q710 67 678 65 Q632 70 584 65Z"/>
+                        </g>
+                    </defs>
+                    <use href="#cloudTile"/>
+                    <use href="#cloudTile" x="760"/>
+                </svg>
+            </div>
+
+            <!-- Rocky Mountain limestone peaks and snowfields -->
+            <div class="mountains-far">
+                <svg viewBox="0 0 1520 170" width="100%" height="170" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="mountainWash" x1="0" y1="0" x2="0" y2="1">
+                            <stop stop-color="#8f9c9b"/><stop offset="1" stop-color="#b9c9bd"/>
+                        </linearGradient>
+                        <g id="mountainTile">
+                            <path d="M0 126 L24 111 L40 88 L48 91 L67 67 L75 70 L91 47 L99 52 L109 42 L120 56 L130 60 L144 80 L154 77 L172 95 L186 101 L204 88 L218 71 L226 74 L245 48 L253 51 L267 29 L273 32 L284 15 L294 27 L302 28 L315 48 L324 46 L343 72 L353 72 L373 96 L390 90 L407 70 L416 73 L431 52 L440 54 L453 35 L464 42 L473 41 L488 62 L497 61 L517 84 L531 88 L551 107 L566 94 L577 95 L595 76 L604 78 L619 57 L628 59 L641 40 L650 46 L658 43 L674 64 L684 64 L705 89 L722 98 L741 115 L760 126 V170 H0Z" fill="url(#mountainWash)"/>
+                            <path d="M99 52 L109 42 L120 56 L130 60 L154 94 L143 91 L130 79 L121 79 L111 65 L105 68 L99 59 L89 69 L80 69 L91 47Z M253 51 L267 29 L273 32 L284 15 L294 27 L302 28 L315 48 L324 46 L343 72 L329 67 L316 58 L307 60 L296 44 L288 47 L282 33 L272 46 L263 45 L252 59 L241 60Z M431 52 L440 54 L453 35 L464 42 L473 41 L488 62 L497 61 L512 78 L496 73 L482 65 L474 66 L462 55 L453 57 L446 49 L435 62 L425 63Z M619 57 L628 59 L641 40 L650 46 L658 43 L674 64 L684 64 L698 80 L683 76 L670 70 L661 70 L650 57 L641 62 L634 53 L623 66 L612 67Z" fill="#edf1e8"/>
+                            <path d="M109 43 L121 58 L130 61 L154 95 L140 100 L124 78 L113 72Z M284 16 L294 28 L302 29 L315 49 L324 47 L351 83 L334 98 L312 81 L300 59 L288 54Z M453 36 L465 43 L473 42 L489 63 L497 62 L525 94 L506 100 L482 81 L472 67 L457 62Z M641 41 L651 47 L658 44 L674 65 L684 65 L712 96 L693 106 L674 87 L658 72 L647 68Z" fill="#6d8282" opacity=".46"/>
+                            <path d="M65 91 L88 77 L105 73 M75 101 L99 87 L121 83 M86 111 L114 99 L136 94 M222 82 L253 65 L270 60 M232 92 L268 75 L292 71 M245 104 L281 88 L309 84 M255 116 L297 100 L325 96 M414 78 L440 65 L456 62 M422 90 L452 77 L473 73 M435 102 L470 89 L491 86 M603 83 L628 70 L644 67 M614 94 L644 82 L663 79 M625 106 L661 94 L681 91" fill="none" stroke="#e1e6d9" stroke-width="2.1" stroke-linecap="round" opacity=".55"/>
+                            <path d="M0 144 Q56 119 104 128 Q155 113 204 130 Q246 116 291 130 Q339 110 392 128 Q441 114 490 130 Q545 110 594 128 Q657 115 704 130 Q735 123 760 144 V170 H0Z" fill="#8ca89b" opacity=".42"/>
+                        </g>
+                    </defs>
+                    <use href="#mountainTile"/>
+                    <use href="#mountainTile" x="760"/>
+                </svg>
+            </div>
+
+            <!-- Midground Foothills -->
+            <div class="mountains-mid">
+                <svg viewBox="0 0 1520 140" width="100%" height="140" preserveAspectRatio="none">
+                    <defs>
+                        <g id="foothillTile">
+                            <path d="M0 140 V90 Q52 72 92 77 Q145 40 205 70 Q253 83 300 67 Q358 39 407 64 Q468 88 521 62 Q579 40 633 71 Q694 91 760 90 V140Z" fill="#607b6b"/>
+                            <path d="M0 118 Q84 91 148 105 Q222 83 285 110 Q360 87 421 105 Q494 81 557 105 Q640 87 760 118 V140 H0Z" fill="#78917a" opacity=".65"/>
+                            <path d="M35 105 Q93 87 137 95 M326 91 Q376 74 418 85 M557 89 Q606 75 649 88" fill="none" stroke="#abc0a1" stroke-width="5" stroke-linecap="round" opacity=".35"/>
+                        </g>
+                    </defs>
+                    <use href="#foothillTile"/>
+                    <use href="#foothillTile" x="760"/>
+                </svg>
+            </div>
+
+            <!-- Glacial lake between the forested slopes and the meadow -->
+            <svg class="alpine-lake" viewBox="0 0 760 85" preserveAspectRatio="none">
+                <defs>
+                    <linearGradient id="lakeWater" x1="0" y1="0" x2="0" y2="1">
+                        <stop stop-color="#8acdc4"/><stop offset="1" stop-color="#4eaaa5"/>
+                    </linearGradient>
+                </defs>
+                <path d="M0 25 Q75 14 150 23 Q226 11 300 22 Q386 12 455 23 Q533 12 615 23 Q688 14 760 25 V85 H0Z" fill="url(#lakeWater)"/>
+                <path d="M0 26 Q75 15 150 24 Q226 12 300 23 Q386 13 455 24 Q533 13 615 24 Q688 15 760 26" fill="none" stroke="#c9ded0" stroke-width="3" opacity=".75"/>
+                <g fill="none" stroke="#def0dc" stroke-linecap="round" opacity=".55">
+                    <path d="M34 38 h54 M111 48 h37 M165 33 h62 M280 43 h51 M360 35 h70 M461 50 h40 M535 36 h58 M651 44 h65" stroke-width="1.5"/>
+                    <path d="M75 58 h28 M237 51 h25 M402 58 h33 M581 57 h30 M718 34 h24" stroke-width="1"/>
+                </g>
+                <path class="lake-ice" d="M0 25 Q75 14 150 23 Q226 11 300 22 Q386 12 455 23 Q533 12 615 23 Q688 14 760 25 V85 H0Z" fill="#d2e7e8"/>
+            </svg>
+
+            <!-- Pine Trees Layer -->
+            <div class="trees-layer">
+                <svg viewBox="0 0 1520 95" width="100%" height="95" preserveAspectRatio="none">
+                    <defs>
+                        <g id="fir">
+                            <path d="M-2 95 L-1 35 L2 95Z" fill="#615b46"/>
+                            <path d="M0 8 Q-3 27 -9 36 L-5 35 Q-10 48 -15 53 L-9 51 Q-15 65 -21 71 L-14 68 Q-20 82 -25 88 Q-13 87 0 80 Q12 88 25 88 Q18 81 14 69 L21 72 Q15 63 10 51 L15 54 Q9 43 5 35 L9 37 Q3 24 0 8Z" fill="#3f6250"/>
+                            <path d="M0 14 Q-3 34 -9 42 M-2 39 Q-9 55 -15 59 M1 50 Q8 64 15 68 M-2 62 Q-10 77 -19 80" fill="none" stroke="#829b77" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+                            <path class="fir-snow" d="M-8 39 Q0 42 8 39 M-13 55 Q0 59 13 55 M-19 73 Q0 78 19 73 M-23 87 Q-11 88 -2 83 M3 83 Q13 88 23 87" fill="none" stroke="#f4faf6" stroke-width="3" stroke-linecap="round"/>
+                        </g>
+                        <g id="forestTile">
+                            <use href="#fir" transform="translate(52 14) scale(.8 .85)"/>
+                            <use href="#fir" transform="translate(135 4) scale(1 1)"/>
+                            <use href="#fir" transform="translate(183 29) scale(.65 .7)"/>
+                            <use href="#fir" transform="translate(277 22) scale(.7 .77)"/>
+                            <use href="#fir" transform="translate(350 1) scale(1.05 1.03)"/>
+                            <use href="#fir" transform="translate(399 28) scale(.62 .7)"/>
+                            <use href="#fir" transform="translate(490 17) scale(.82 .82)"/>
+                            <use href="#fir" transform="translate(600 4) scale(1 1)"/>
+                            <use href="#fir" transform="translate(641 30) scale(.6 .68)"/>
+                            <use href="#fir" transform="translate(705 21) scale(.74 .78)"/>
+                        </g>
+                    </defs>
+                    <use href="#forestTile"/>
+                    <use href="#forestTile" x="760"/>
+                </svg>
+            </div>
+
+            <!-- Grassy mountain meadow: switchback trail winding toward / away from the viewer, creeks flowing downhill (generated in JS) -->
+            <svg class="trail-terrain" id="trailTerrain" viewBox="0 0 760 170" preserveAspectRatio="none">
+                <defs>
+                    <linearGradient id="meadow" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#a9bd82"/>
+                        <stop offset="45%" stop-color="#86a873"/>
+                        <stop offset="100%" stop-color="#688d68"/>
+                    </linearGradient>
+                    <linearGradient id="creekWater" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#c5ded5"/>
+                        <stop offset="100%" stop-color="#83b6b2"/>
+                    </linearGradient>
+                </defs>
+                <g id="terrainTrack">
+                    <path id="terrainBody" fill="url(#meadow)"/>
+                    <path id="terrainCrest" fill="none" stroke="#d1d5a5" stroke-width="4" stroke-linejoin="round" opacity=".65" transform="translate(0,3)"/>
+                    <g id="meadowDecor"></g>
+                    <g id="snowDecor" class="snow-decor"></g>
+                    <!-- Switchback trail ribbon (narrow when far, wide when near) -->
+                    <path id="trailEdge" fill="#a38d70"/>
+                    <path id="trailRibbon" fill="#d1bc96"/>
+                    <path id="trailGravel" fill="none" stroke="#a99c7e" opacity=".6" stroke-width="1.2" stroke-dasharray="2 18 4 22" stroke-linecap="round"/>
+                    <!-- Creeks flowing down the slope, crossing the trail -->
+                    <g id="creeks"></g>
+                    <!-- Ridge-top rocks, cairn & marker -->
+                    <g id="ridgeDecor"></g>
+                </g>
+            </svg>
+
+            <svg class="snowfall" viewBox="0 0 760 330" preserveAspectRatio="none">
+                <defs>
+                    <g id="snowflakes" fill="#ffffff">
+                        <circle cx="45" cy="24" r="2"/><circle cx="124" cy="82" r="1.7"/>
+                        <circle cx="209" cy="35" r="2.6"/><circle cx="277" cy="114" r="1.6"/>
+                        <circle cx="358" cy="53" r="2.1"/><circle cx="427" cy="143" r="2.5"/>
+                        <circle cx="504" cy="21" r="1.8"/><circle cx="578" cy="101" r="2.4"/>
+                        <circle cx="668" cy="48" r="1.7"/><circle cx="725" cy="150" r="2.2"/>
+                        <circle cx="82" cy="189" r="1.8"/><circle cx="171" cy="246" r="2.3"/>
+                        <circle cx="258" cy="206" r="2"/><circle cx="331" cy="294" r="1.7"/>
+                        <circle cx="475" cy="254" r="2"/><circle cx="552" cy="186" r="1.6"/>
+                        <circle cx="635" cy="279" r="2.3"/><circle cx="741" cy="231" r="1.7"/>
+                    </g>
+                </defs>
+                <g class="snowfall-drift" opacity=".8">
+                    <use href="#snowflakes"/>
+                    <use href="#snowflakes" y="330"/>
+                </g>
+            </svg>
+
+            <!-- Woodland moose -->
+            <div class="moose-stage">
+                <svg viewBox="0 0 240 190" width="240" height="190">
+                    <defs>
+                        <linearGradient id="mooseCoat" x1="0" y1="0" x2=".35" y2="1">
+                            <stop stop-color="#a38568"/><stop offset=".38" stop-color="#765a49"/><stop offset="1" stop-color="#493b33"/>
+                        </linearGradient>
+                        <linearGradient id="mooseLeg" x1="0" y1="0" x2=".15" y2="1">
+                            <stop stop-color="#604a3c"/><stop offset=".55" stop-color="#8d7159"/><stop offset="1" stop-color="#b3a08a"/>
+                        </linearGradient>
+                        <linearGradient id="mooseFace" x1="0" y1="0" x2=".7" y2="1">
+                            <stop stop-color="#907159"/><stop offset=".55" stop-color="#6b5041"/><stop offset="1" stop-color="#483a32"/>
+                        </linearGradient>
+                        <linearGradient id="antlerColor" x1="0" y1="0" x2="0" y2="1">
+                            <stop stop-color="#ddc8a7"/><stop offset=".6" stop-color="#bda486"/><stop offset="1" stop-color="#8e755f"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Trail Shadow -->
+                    <ellipse class="moose-shadow" cx="120" cy="178" rx="68" ry="5" fill="#183440"/>
+
+                    <!-- Dust Puffs Behind Hooves -->
+                    <g class="dust-puff-1" fill="#f3e5d0">
+                        <circle cx="52" cy="166" r="7"/>
+                        <circle cx="61" cy="162" r="5"/>
+                        <circle cx="44" cy="161" r="4.5"/>
+                    </g>
+                    <g class="dust-puff-2" fill="#f3e5d0">
+                        <circle cx="38" cy="162" r="6"/>
+                        <circle cx="46" cy="158" r="4.5"/>
+                    </g>
+
+                    <!-- Moose riding with its hooves on the deck -->
+                    <g class="moose-body-group">
+                        <g class="leg-back-far">
+                            <path d="M72 109 Q69 125 61 136 L59 143 L55 158 L62 160 L67 145 Q78 134 84 119Z" fill="#5b4b40"/>
+                            <path d="M55 155 L62 157 L63 164 L53 165 L52 163Z" fill="#393832"/>
+                        </g>
+
+                        <g class="leg-front-far">
+                            <path d="M137 110 Q138 123 143 139 L142 157 L149 159 L153 138 Q151 120 150 110Z" fill="#5e4d40"/>
+                            <path d="M142 155 L149 156 L151 163 L141 165 L139 162Z" fill="#393832"/>
+                        </g>
+
+                        <path d="M65 91 Q56 88 53 94 Q52 99 59 102 L66 100Z" fill="#594639"/>
+                        <path d="M61 97 Q60 85 69 79 Q78 72 94 74 Q108 75 119 73 Q130 63 141 61 Q151 59 160 65 Q171 71 173 83 L174 101 Q171 113 161 119 Q152 124 137 122 Q121 125 106 122 Q88 125 73 120 Q61 115 61 97Z" fill="url(#mooseCoat)" stroke="#59483c" stroke-width=".8"/>
+                        <path d="M65 91 Q70 79 87 78 Q103 76 115 79 Q130 68 143 66 Q154 64 161 70" fill="none" stroke="#d0af8c" stroke-width="3" stroke-linecap="round" opacity=".25"/>
+                        <path d="M69 104 Q73 117 91 119 Q107 123 125 119 M129 74 Q119 91 124 111 Q127 119 134 122" fill="none" stroke="#493a32" stroke-width="3" stroke-linecap="round" opacity=".23"/>
+                        <path d="M75 86 l5 -2 m4 -2 l6 -1 m8 0 l6 1 m32 -11 l5 -2 m7 0 l5 2 M74 111 l5 2 m5 2 l6 1 m43 -7 l3 5 m2 -7 l3 5" fill="none" stroke="#d4b28e" stroke-width="1" stroke-linecap="round" opacity=".32"/>
+
+                        <!-- Near Back Leg -->
+                        <g class="leg-back-near">
+                            <path d="M77 109 Q74 122 70 132 Q69 137 72 142 L77 158 L85 159 L81 140 Q88 130 92 116 Q88 110 77 109Z" fill="url(#mooseLeg)" stroke="#665144" stroke-width=".7"/>
+                            <path d="M78 115 Q77 128 74 136" fill="none" stroke="#c1a386" stroke-width="1.5" opacity=".4"/>
+                            <path d="M77 155 L84 156 L88 163 L85 165 L76 165 L74 163Z" fill="#403b34"/>
+                            <path d="M81 160 L82 164" stroke="#76695a" stroke-width=".7"/>
+                        </g>
+
+                        <!-- Near Front Leg -->
+                        <g class="leg-front-near">
+                            <path d="M145 107 Q144 121 152 139 L160 157 L168 156 L161 137 Q159 122 160 111Z" fill="url(#mooseLeg)" stroke="#665144" stroke-width=".7"/>
+                            <path d="M150 116 Q151 127 155 136" fill="none" stroke="#c1a386" stroke-width="1.5" opacity=".4"/>
+                            <path d="M159 154 L166 153 L173 161 L171 164 L162 165 L158 161Z" fill="#403b34"/>
+                            <path d="M166 159 L168 163" stroke="#76695a" stroke-width=".7"/>
+                        </g>
+
+                        <!-- Neck & Head -->
+                        <g>
+                            <path d="M148 74 Q151 63 160 59 Q173 56 182 64 Q187 71 187 84 Q182 97 177 107 Q170 115 157 112 Q163 103 158 93 Q153 84 148 74Z" fill="url(#mooseFace)"/>
+                            <path d="M156 73 Q164 67 171 70 M159 81 Q164 88 164 98" fill="none" stroke="#c19d7f" stroke-width="2" opacity=".25" stroke-linecap="round"/>
+                            <path d="M160 66 Q147 61 145 50 Q155 49 165 58Z" fill="#5c493a"/>
+                            <g class="moose-antlers">
+                                <path d="M165 59 Q159 49 149 45 Q139 44 130 39 Q121 34 119 27 Q118 23 121 23 Q123 23 125 28 L130 31 L127 19 Q127 15 130 15 Q133 15 134 20 L137 28 L138 15 Q139 11 142 13 L144 26 L149 18 Q151 15 153 18 Q153 23 149 32 Q147 36 144 38 Q155 41 166 53Z" fill="url(#antlerColor)" stroke="#927a65" stroke-width=".9"/>
+                                <path d="M170 57 Q178 47 188 42 Q198 38 204 31 Q207 27 206 22 Q206 19 203 20 L200 27 L197 17 Q195 13 192 16 L193 27 L186 14 Q183 11 181 15 L185 29 L178 22 Q175 20 174 23 Q174 29 181 37 Q172 42 167 53Z" fill="url(#antlerColor)" stroke="#927a65" stroke-width=".9"/>
+                                <path d="M129 33 Q142 39 155 48 M194 33 Q184 40 174 50" fill="none" stroke="#f2dec0" stroke-width="1.2" stroke-linecap="round" opacity=".55"/>
+                                <g id="antlerBow" transform="translate(22 13)">
+                                    <g class="moose-bow-tails">
+                                        <path d="M143 39 Q132 42 123 49 L119 48 L122 55 Q134 48 146 42Z" fill="#a83c31"/>
+                                        <path d="M145 39 Q143 48 137 55 L142 54 L144 59 Q150 50 149 40Z" fill="#bd5040"/>
+                                    </g>
+                                    <path d="M145 38 Q136 27 130 30 Q126 34 130 40 Q135 43 144 40Z" fill="#bb4939" stroke="#923b31" stroke-width=".8"/>
+                                    <path d="M146 38 Q153 27 160 30 Q164 34 160 40 Q155 43 147 40Z" fill="#c85440" stroke="#923b31" stroke-width=".8"/>
+                                    <path d="M132 33 Q136 32 141 37 M157 33 Q153 32 150 37" fill="none" stroke="#e48c73" stroke-width="1" stroke-linecap="round"/>
+                                    <path d="M142 36 Q145 34 149 36 L149 41 Q145 43 142 40Z" fill="#a83c31" stroke="#923b31" stroke-width=".7"/>
+                                </g>
+                            </g>
+                            <path d="M163 65 Q149 65 142 57 Q140 54 142 51 Q153 51 165 60Z" fill="#765b49"/>
+                            <path d="M158 62 Q150 61 145 55 Q153 56 160 60Z" fill="#b18c79"/>
+                            <path d="M166 63 Q177 59 186 65 Q192 69 194 76 Q198 80 206 82 Q212 85 212 92 Q211 99 203 101 Q191 102 183 96 Q175 93 170 88 Q163 83 161 76 Q160 68 166 63Z" fill="url(#mooseFace)" stroke="#59483c" stroke-width=".7"/>
+                            <path d="M189 76 Q197 80 206 83 Q211 86 210 93 Q209 99 202 99 Q194 99 188 94 Q185 88 189 76Z" fill="#9d7d67" opacity=".55"/>
+                            <path d="M168 86 Q166 95 170 103 Q172 107 176 105 Q178 100 175 91Z" fill="#514036"/>
+                            <path d="M169 68 Q176 65 183 69" fill="none" stroke="#c5a88c" stroke-width="1.8" stroke-linecap="round" opacity=".5"/>
+                            <path d="M175 72 Q177 70 180 72 Q178 74 175 72Z" fill="#322e29"/>
+                            <circle cx="178.4" cy="71.7" r=".55" fill="#f4e7d2"/>
+                            <ellipse cx="204" cy="88" rx="1.6" ry="2.3" transform="rotate(-28 204 88)" fill="#483b32"/>
+                            <path d="M194 96 Q201 99 207 95" fill="none" stroke="#5d483b" stroke-width="1" stroke-linecap="round"/>
+                            <path d="M181 76 l3 1 m-3 3 l3 1 m-17 1 l2 3" fill="none" stroke="#d3b39a" stroke-width=".8" opacity=".45" stroke-linecap="round"/>
+                        </g>
+                    </g>
+                    <g class="skateboard">
+                        <path d="M66 168 L71 172 L79 172 L83 168 M150 168 L154 172 L162 172 L166 168" fill="none" stroke="#71685a" stroke-width="2.5" stroke-linejoin="round"/>
+                        <g class="skate-wheel">
+                            <circle cx="75" cy="172" r="4" fill="#e1c798" stroke="#594d40" stroke-width="1"/>
+                            <path d="M75 169.5 V174.5 M72.5 172 H77.5" stroke="#8f775d" stroke-width=".8"/>
+                        </g>
+                        <g class="skate-wheel">
+                            <circle cx="158" cy="172" r="4" fill="#e1c798" stroke="#594d40" stroke-width="1"/>
+                            <path d="M158 169.5 V174.5 M155.5 172 H160.5" stroke="#8f775d" stroke-width=".8"/>
+                        </g>
+                        <path d="M43 161 Q47 165 56 165 H177 Q186 165 191 161 Q190 169 178 170 H56 Q45 169 43 161Z" fill="#a96c45" stroke="#604c3e" stroke-width="1"/>
+                        <path d="M51 165 H183" stroke="#e1bc83" stroke-width="1.2" stroke-linecap="round"/>
+                    </g>
+                    <g class="snowboard">
+                        <path d="M41 160 Q45 166 57 165 H178 Q190 165 195 159 Q196 172 183 175 Q120 178 55 175 Q43 173 41 160Z" fill="#b94f40" stroke="#773e34" stroke-width="1"/>
+                        <path d="M50 166 Q118 169 186 166" fill="none" stroke="#f0c4a4" stroke-width="1.2" stroke-linecap="round"/>
+                        <path d="M78 164 L78 168 M164 164 L164 168" stroke="#5b4840" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M60 173 Q120 176 179 173" fill="none" stroke="#f2e7d5" stroke-width="1" opacity=".8"/>
+                    </g>
+                    <g class="snow-spray">
+                        <g class="snow-spray-flakes" fill="#f7fcfa">
+                            <circle cx="48" cy="172" r="3"/><circle cx="39" cy="168" r="2.5"/>
+                            <circle cx="31" cy="174" r="2"/><circle cx="44" cy="162" r="1.8"/>
+                            <circle cx="24" cy="169" r="1.6"/>
+                        </g>
+                    </g>
+                    <!-- Creek splash (visible while crossing water) -->
+                    <g class="moose-splash">
+                        <ellipse class="splash-ring" cx="120" cy="168" rx="58" ry="7" fill="none" stroke="#e6f7fd" stroke-width="3"/>
+                        <g fill="#bfe9f8">
+                            <circle class="drop d1" cx="70" cy="160" r="4"/>
+                            <circle class="drop d2" cx="88" cy="162" r="3"/>
+                            <circle class="drop d3" cx="160" cy="160" r="4"/>
+                            <circle class="drop d4" cx="178" cy="162" r="3"/>
+                            <circle class="drop d5" cx="124" cy="164" r="3.5"/>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+        <div class="redirect-info">
+            <div class="brand-pill">
+                <span class="brand-dot"></span>
+                <span>Finux Labs Signal</span>
+            </div>
+            <h1>Blazing the Trail to the Portal...</h1>
+            <p class="subtitle">Redirecting you to the Finux Labs Signal hub in just a moment.</p>
+
+            <div class="progress-track" role="progressbar" aria-label="Redirecting to Finux Labs Signal">
+                <div class="progress-fill"></div>
+            </div>
+
+            <a href="docs/index.html" class="enter-btn">
+                <span>Skip &amp; Enter Portal Now</span>
+                <span aria-hidden="true">&rarr;</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var SVGNS = 'http://www.w3.org/2000/svg';
+            var P = 760;   // terrain tile period (viewBox units)
+            var H = 170;   // terrain svg height (px == viewBox units vertically)
+            var TAU = Math.PI * 2;
+            var DEPTH = 65; // how far down the meadow face the trail swings when nearest the viewer
+
+            function mod(x) { return ((x % P) + P) % P; }
+
+            // Ridge line of the meadow: climbs, crests & valleys
+            function groundY(x) {
+                var t = TAU * x / P;
+                return 58
+                    - 26 * Math.sin(t)
+                    - 12 * Math.sin(2 * t + 1.1)
+                    - 6 * Math.sin(3 * t + 0.4)
+                    - 2.5 * Math.sin(7 * t + 2.0)
+                    - 1.2 * Math.sin(13 * t + 0.7);
+            }
+            // Nearness of the trail to the viewer (0 = far on the ridge, 1 = close in the foreground)
+            function near(x) {
+                var t = TAU * x / P;
+                var n = 0.5 + 0.34 * Math.sin(2 * t + 0.6) + 0.18 * Math.sin(3 * t + 2.1);
+                return Math.max(0, Math.min(1, n));
+            }
+            function trailY(x) { return groundY(x) + 5 + near(x) * DEPTH; }
+            function trailHalf(x) { return 2.2 + 6.5 * near(x); }
+
+            // Creeks spring from the ridge and widen as they flow toward the viewer
+            var creeks = [{ x0: 215, ph: 0.4, lean: 0.18 }, { x0: 565, ph: 2.2, lean: -0.14 }];
+            function creekTop(c) { return groundY(c.x0) + 3; }
+            function creekU(c, y) { return Math.max(0, Math.min(1, (y - creekTop(c)) / (H + 4 - creekTop(c)))); }
+            function creekX(c, y) { var u = creekU(c, y); return c.x0 + (y - creekTop(c)) * c.lean + 9 * Math.sin(y / 13 + c.ph) * u; }
+            function creekHalf(c, y) { return 1.5 + 15 * creekU(c, y); }
+
+            function wadingAt(x) {
+                var y = trailY(x);
+                for (var i = 0; i < creeks.length; i++) {
+                    var c = creeks[i];
+                    if (y < creekTop(c)) continue;
+                    var cx = creekX(c, y), hw = creekHalf(c, y) + 4;
+                    for (var s = -1; s <= 1; s++) if (Math.abs(x + s * P - cx) < hw) return true;
+                }
+                return false;
+            }
+
+            function el(tag, attrs) {
+                var n = document.createElementNS(SVGNS, tag);
+                for (var k in attrs) n.setAttribute(k, attrs[k]);
+                return n;
+            }
+
+            // ---- Build terrain across three tiles (-P..2P) ----
+            var ridge = [], top = [], bot = [], mid = [];
+            for (var x = -P; x <= P * 2; x += 4) {
+                ridge.push(x + ',' + groundY(x).toFixed(2));
+                var ty = trailY(x), hw = trailHalf(x);
+                top.push(x + ',' + (ty - hw).toFixed(2));
+                bot.unshift(x + ',' + (ty + hw).toFixed(2));
+                mid.push(x + ',' + (ty + hw * 0.15).toFixed(2));
+            }
+            var ridgeLine = 'M' + ridge.join(' L');
+            document.getElementById('terrainBody').setAttribute('d', ridgeLine + ' L' + (P * 2) + ',' + (H + 10) + ' L' + (-P) + ',' + (H + 10) + ' Z');
+            document.getElementById('terrainCrest').setAttribute('d', ridgeLine);
+            document.getElementById('trailRibbon').setAttribute('d', 'M' + top.join(' L') + ' L' + bot.join(' L') + ' Z');
+            document.getElementById('trailEdge').setAttribute('d', 'M' + top.join(' L') + ' L' + bot.join(' L') + ' Z');
+            document.getElementById('trailEdge').setAttribute('transform', 'translate(0,1.6)');
+            document.getElementById('trailGravel').setAttribute('d', 'M' + mid.join(' L'));
+
+            var meadow = document.getElementById('meadowDecor');
+            var snow = document.getElementById('snowDecor');
+            var creekG = document.getElementById('creeks');
+            var ridgeG = document.getElementById('ridgeDecor');
+
+            var seed = 11;
+            function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+
+            // Grass blades & wildflowers scaled by depth (smaller near the ridge, larger in front)
+            var meadowItems = [];
+            for (var p = 0; p < 70; p++) meadowItems.push({ t: 'p', x: rnd() * P, d: 10 + rnd() * 100, r: 5 + rnd() * 14 });
+            for (var i = 0; i < 150; i++) meadowItems.push({ t: 'b', x: rnd() * P, d: 6 + rnd() * 100 });
+            for (var f = 0; f < 40; f++) meadowItems.push({ t: 'f', x: rnd() * P, d: 8 + rnd() * 90, c: ['#f5edcf', '#e7cc88', '#dcaea0', '#d7d1bb'][Math.floor(rnd() * 4)] });
+
+            function onTrailOrCreek(x, y) {
+                if (Math.abs(y - trailY(x)) < trailHalf(x) + 3) return true;
+                for (var i = 0; i < creeks.length; i++) {
+                    var c = creeks[i];
+                    if (y > creekTop(c) && Math.abs(x - creekX(c, y)) < creekHalf(c, y) + 3) return true;
+                }
+                return false;
+            }
+
+            function drawMeadow(it, ox) {
+                var y = groundY(it.x) + it.d;
+                if (y > H - 2 || onTrailOrCreek(it.x, y)) return;
+                var depthScale = 0.5 + 0.9 * Math.min(1, (y - groundY(it.x)) / 100);
+                var g = el('g', { transform: 'translate(' + (it.x + ox).toFixed(1) + ',' + y.toFixed(1) + ') scale(' + depthScale.toFixed(2) + ')' });
+                if (it.t === 'p') {
+                    g.appendChild(el('ellipse', { cx: 0, cy: 0, rx: it.r.toFixed(1), ry: (it.r * 0.22).toFixed(1), fill: '#d2d7a2', opacity: '0.14' }));
+                } else if (it.t === 'b') {
+                    g.appendChild(el('path', { d: 'M-4,2 Q-4,-2 -6,-5 M-1,2 Q0,-3 -1,-7 M1,2 Q3,-2 5,-4', fill: 'none', stroke: '#64845f', 'stroke-width': '1.1', 'stroke-linecap': 'round', opacity: '0.7' }));
+                } else {
+                    g.appendChild(el('path', { d: 'M0,3 Q1,0 0,-3', fill: 'none', stroke: '#63825c', 'stroke-width': '0.8' }));
+                    g.appendChild(el('circle', { cx: 0, cy: -3, r: 1.8, fill: it.c }));
+                    g.appendChild(el('circle', { cx: 0, cy: -3, r: 0.55, fill: '#b99862' }));
+                }
+                meadow.appendChild(g);
+            }
+
+            function drawCreek(c, ox) {
+                var yT = creekTop(c), left = [], right = [], center = [];
+                for (var y = yT; y <= H + 4; y += 2) {
+                    var cx = creekX(c, y) + ox, hw = creekHalf(c, y);
+                    left.push((cx - hw).toFixed(1) + ',' + y.toFixed(1));
+                    right.unshift((cx + hw).toFixed(1) + ',' + y.toFixed(1));
+                    center.push(cx.toFixed(1) + ',' + y.toFixed(1));
+                }
+                var shape = 'M' + left.join(' L') + ' L' + right.join(' L') + ' Z';
+                creekG.appendChild(el('path', { d: shape, fill: '#607d68', transform: 'translate(0,1.5)' }));
+                creekG.appendChild(el('path', { d: shape, fill: 'url(#creekWater)' }));
+                creekG.appendChild(el('path', { d: 'M' + center.join(' L'), fill: 'none', stroke: '#e6f7fd', 'stroke-width': '1.6', 'stroke-dasharray': '6 10', 'stroke-linecap': 'round', class: 'water-flow' }));
+                creekG.appendChild(el('path', { d: 'M' + center.join(' L'), fill: 'none', stroke: '#c4ecfa', 'stroke-width': '1.1', 'stroke-dasharray': '3 14', transform: 'translate(4,0)', class: 'water-flow slow' }));
+                // Spring rocks at the source and reeds on the lower banks
+                var sx = c.x0 + ox;
+                creekG.appendChild(el('ellipse', { cx: sx - 4, cy: yT + 1, rx: 4, ry: 2.2, fill: '#9a9c94' }));
+                creekG.appendChild(el('ellipse', { cx: sx + 5, cy: yT + 2, rx: 3, ry: 1.8, fill: '#b2b4ac' }));
+                [120, 150].forEach(function (ry, idx) {
+                    if (ry < yT + 20) return;
+                    var side = idx === 0 ? -1 : 1;
+                    var rx = creekX(c, ry) + ox + side * (creekHalf(c, ry) + 4);
+                    var g = el('g', { transform: 'translate(' + rx.toFixed(1) + ',' + ry + ') scale(' + (0.8 + idx * 0.35) + ')' });
+                    g.appendChild(el('path', { d: 'M-3,0 Q-4,-10 -6,-15 M0,0 L0,-17 M3,0 Q4,-9 6,-13', stroke: '#2f6b3d', 'stroke-width': '1.6', fill: 'none', 'stroke-linecap': 'round' }));
+                    g.appendChild(el('rect', { x: -1.6, y: -21, width: 3.2, height: 7, rx: 1.6, fill: '#7a4e2d' }));
+                    creekG.appendChild(g);
+                });
+            }
+
+            function drawRidge(ox) {
+                [[300, 'boulder'], [640, 'rock'], [40, 'rock'], [120, 'rock'], [470, 'rock'], [700, 'rock']].forEach(function (r) {
+                    var x = r[0] + ox, y = groundY(r[0]);
+                    var g = el('g', { transform: 'translate(' + x + ',' + y.toFixed(1) + ') scale(0.75)' });
+                    if (r[1] === 'boulder') {
+                        g.appendChild(el('path', { d: 'M-22,6 Q-24,-14 -8,-20 Q10,-24 20,-10 Q26,0 22,6 Z', fill: '#7f827b' }));
+                        g.appendChild(el('path', { d: 'M-14,-10 Q-6,-18 6,-17 Q-2,-12 -14,-10 Z', fill: '#a9aba3' }));
+                    } else {
+                        g.appendChild(el('path', { d: 'M-9,6 L-7,-3 L-1,-7 L7,-4 L10,6 Z', fill: '#8f918a' }));
+                        g.appendChild(el('path', { d: 'M-6,-2 L-1,-6 L5,-3 L1,-1 Z', fill: '#b9bbb3' }));
+                    }
+                    ridgeG.appendChild(g);
+                });
+            }
+
+            [-P, 0, P].forEach(function (ox) {
+                meadowItems.forEach(function (it) { drawMeadow(it, ox); });
+                meadowItems.filter(function (it) { return it.t === 'p'; }).forEach(function (it) {
+                    var y = groundY(it.x) + it.d;
+                    if (y > H - 2 || Math.abs(y - trailY(it.x)) < trailHalf(it.x) + 4) return;
+                    snow.appendChild(el('ellipse', {
+                        cx: (it.x + ox).toFixed(1), cy: y.toFixed(1),
+                        rx: it.r.toFixed(1), ry: (it.r * 0.18).toFixed(1),
+                        fill: '#f8fcf8', opacity: '0.5'
+                    }));
+                });
+                creeks.forEach(function (c) { drawCreek(c, ox); });
+                drawRidge(ox);
+            });
+
+            // ---- Animate: scroll the world, moose follows the winding trail in depth ----
+            var track = document.getElementById('terrainTrack');
+            var terrain = document.getElementById('trailTerrain');
+            var scene = document.querySelector('.scene-viewport');
+            var moose = document.querySelector('.moose-stage');
+            var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            [6000, 12000, 18000].forEach(function (delay, index) {
+                setTimeout(function () {
+                    var winter = index % 2 === 0;
+                    scene.classList.toggle('winter', winter);
+                    if (winter) moose.classList.remove('wading');
+                }, delay);
+            });
+
+            var offset = 0, last = null, t0 = null;
+            function frame(ts) {
+                if (last === null) { last = ts; t0 = ts; }
+                var dt = Math.min(0.05, (ts - last) / 1000);
+                var el_t = (ts - t0) / 1000;
+                last = ts;
+
+                var w = scene.clientWidth || P;
+                var sx = w / P;
+                var sy = terrain.clientHeight / H;
+                var sceneScale = Math.max(0.85, Math.min(sx, sy, Math.max(0.85, window.innerWidth / 400)));
+                var drift = reduceMotion ? 0 : Math.sin(el_t * 0.55) * Math.min(90 * sceneScale, window.innerWidth * 0.12);
+                var mx = mod(offset + (w / 2 + drift) / sx);
+                var n = near(mx);
+                var grade = (trailY(mx + 12) - trailY(mx - 12)) * sy / (24 * sx);
+
+                // Slower climbing, faster descending; slightly slower when far away (perspective)
+                var speed = Math.max(85, Math.min(200, 145 * (1 + 0.6 * grade))) * (0.7 + 0.4 * n);
+                var winter = scene.classList.contains('winter');
+                if (!winter && wadingAt(mx)) speed *= 0.55;
+                offset = mod(offset + speed * dt);
+
+                // Sample position, slope and water at the same point after scrolling.
+                mx = mod(offset + (w / 2 + drift) / sx);
+                n = near(mx);
+                var scale = sceneScale * (w <= 600 ? 0.85 : 1) * (0.52 + 0.68 * n);
+                var hoofSpan = 52 * scale / sx;
+                var front = trailY(mx + hoofSpan), back = trailY(mx - hoofSpan);
+                var screenGrade = (front - back) * sy / (2 * hoofSpan * sx);
+                var angle = Math.max(-28, Math.min(28, Math.atan(screenGrade) * 180 / Math.PI));
+                var wading = !winter && !reduceMotion && wadingAt(mx);
+
+                moose.classList.toggle('wading', wading);
+                track.setAttribute('transform', 'translate(' + (-offset).toFixed(2) + ',0)');
+                // The transform origin is at the wheels, 14px above the stage bottom.
+                moose.style.transform =
+                    'translate(calc(-50% + ' + drift.toFixed(1) + 'px),' + ((trailY(mx) - H) * sy + 14 + (wading ? 4 * scale : 0)).toFixed(2) + 'px)' +
+                    ' rotate(' + angle.toFixed(2) + 'deg) scale(' + scale.toFixed(3) + ')';
+
+                if (!reduceMotion) requestAnimationFrame(frame);
+            }
+            requestAnimationFrame(frame);
+            window.addEventListener('resize', function () {
+                if (reduceMotion) {
+                    last = null;
+                    t0 = null;
+                    frame(0);
+                }
+            });
+        })();
+
+        setTimeout(function () {
+            window.location.href = "docs/index.html";
+        }, 24000);
+    </script>
+</body>
+</html>
