@@ -11,38 +11,40 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            /* Stage & Canvas */
+            /* Stage & Canvas (Slide 16 Warm Editorial Theme) */
             --stage-bg: #0A0D18;
-            --canvas: #F7F8FF;
+            --canvas: #F4F2EB;
             --canvas-card: #FFFFFF;
             
-            /* Light Slide Ink & Typography */
-            --ink: #10142B;
-            --ink-sec: #2D3748;
-            --muted: #5A6578;
-            --muted-light: #8A96A8;
+            /* Slide Ink & Typography (Slide 16 Slate-Teal Palette) */
+            --ink: #183440;
+            --ink-sec: #2D4A53;
+            --muted: #5E747C;
+            --muted-light: #7A8D93;
             
-            /* Vibrant Brand & Accents */
-            --primary-purple: #6C5CE7;
-            --primary-purple-hover: #5646D8;
-            --lavender: #A29BFE;
-            --lavender-light: #F0EFFF;
-            --lavender-border: #D5D1FA;
-            --mint: #4ECCA3;
-            --mint-glow: #2ED573;
-            --mint-light: #E8F9F3;
-            --mint-border: #A3E9D2;
-            --sky: #45AAF2;
-            --cyan: #48DBFB;
-            --orange: #FFA502;
-            --lilac: #A55EEA;
+            /* Brand & Accents (Slide 16 Terracotta & Deep Slate-Teal) */
+            --primary-purple: #C14424;
+            --primary-purple-hover: #A6361A;
+            --slate-primary: #183440;
+            --slate-primary-hover: #0E2028;
+            --lavender: #D96B4E;
+            --lavender-light: #F8EBE6;
+            --lavender-border: #E6BFB3;
+            --mint: #1F6E58;
+            --mint-glow: #288A6E;
+            --mint-light: #E7F2EE;
+            --mint-border: #B6D4C9;
+            --sky: #3B7A8C;
+            --cyan: #C14424;
+            --orange: #D9822B;
+            --lilac: #7A8D93;
             
             /* Lines & Borders */
-            --line: #DCE1EE;
-            --line-light: #EBEFF8;
+            --line: #D8D4C8;
+            --line-light: #E6E2D8;
             --white: #FFFFFF;
             
-            /* Dark Slide Theme Tokens (Slides 1, 8, 11, 15) */
+            /* Dark Slide Theme Tokens (Slide 1 Cover) */
             --dark-bg: #10142B;
             --dark-card: #161B37;
             --dark-card-alt: #1D2348;
@@ -53,8 +55,8 @@
             --dark-teal: #132E35;
             --dark-teal-border: #1E5E58;
 
-            --shadow-sm: 0 2px 8px rgba(16, 20, 43, 0.05);
-            --shadow-md: 0 4px 18px rgba(16, 20, 43, 0.08);
+            --shadow-sm: 0 2px 8px rgba(24, 52, 64, 0.06);
+            --shadow-md: 0 4px 18px rgba(24, 52, 64, 0.10);
             --shadow-dark: 0 4px 20px rgba(0, 0, 0, 0.35);
             --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             --deck-max-width: 1120px;
@@ -410,7 +412,7 @@
         }
 
         .deck-table th {
-            background: var(--primary-purple);
+            background: var(--slate-primary);
             color: var(--white);
             font-weight: 700;
             text-align: left;
@@ -432,13 +434,13 @@
         }
 
         .deck-table tr:hover td {
-            background: #F4F6FD;
+            background: #F9F8F3;
         }
 
         .deck-table tr.total-row td {
             font-weight: 800;
-            background: var(--mint-light);
-            border-top: 1.5px solid var(--mint);
+            background: var(--lavender-light);
+            border-top: 1.5px solid var(--primary-purple);
             color: var(--ink);
         }
 
@@ -555,7 +557,7 @@
         .cover-raise-tag {
             font-size: 1.35rem;
             font-weight: 800;
-            color: var(--mint);
+            color: #4ECCA3;
             margin-bottom: 4px;
             display: inline-block;
         }
@@ -758,20 +760,21 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: var(--primary-purple);
+            background: var(--slate-primary);
             color: var(--white);
             text-decoration: none;
             font-size: 0.86rem;
             font-weight: 700;
             padding: 8px 16px;
-            border-radius: 4px;
+            border-radius: 6px;
             width: fit-content;
             transition: all 0.15s ease;
+            box-shadow: 0 4px 12px rgba(24, 52, 64, 0.18);
         }
 
         .pill-action-link:hover {
-            background: var(--primary-purple-hover);
-            box-shadow: 0 2px 8px rgba(108, 92, 231, 0.35);
+            background: var(--slate-primary-hover);
+            box-shadow: 0 6px 16px rgba(24, 52, 64, 0.28);
         }
 
         .iris-highlight-box {
@@ -828,7 +831,7 @@
 
         .stacked-bar-track {
             height: 32px;
-            background: #EBEFF8;
+            background: #E6E2D8;
             border-radius: 4px;
             overflow: hidden;
             display: flex;
@@ -842,12 +845,12 @@
             position: relative;
         }
 
-        /* Updated Stacked Bar Colors from new PDF */
-        .bar-material { background: #6C5CE7; }
-        .bar-transport { background: #48DBFB; }
-        .bar-ordering { background: #45AAF2; }
-        .bar-cycle { background: #FFA502; }
-        .bar-safety { background: #A55EEA; }
+        /* Stacked Bar Colors harmonized with Slide 16 palette */
+        .bar-material { background: #183440; }
+        .bar-transport { background: #C14424; }
+        .bar-ordering { background: #3B7A8C; }
+        .bar-cycle { background: #D9822B; }
+        .bar-safety { background: #7A8D93; }
 
         .chart-legend-row {
             display: flex;
@@ -902,7 +905,7 @@
             line-height: 1.35;
         }
 
-        /* ==================== SLIDE 8 FLOWCHART (DARK THEME WITH AVATARS) ==================== */
+        /* ==================== SLIDE 8 FLOWCHART (SLIDE 16 THEME WITH AVATARS) ==================== */
         .negotiation-flowchart {
             display: flex;
             flex-direction: column;
@@ -921,11 +924,12 @@
         }
 
         .flow-agent-box {
-            background: var(--dark-card);
-            border: 1px solid #2B3566;
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-top: 4px solid var(--slate-primary);
             border-radius: 6px;
             padding: 30px 20px 18px 20px;
-            box-shadow: var(--shadow-dark);
+            box-shadow: var(--shadow-md);
             position: relative;
             text-align: center;
         }
@@ -943,19 +947,19 @@
             width: 56px;
             height: 56px;
             object-fit: contain;
-            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+            filter: drop-shadow(0 4px 8px rgba(24, 52, 64, 0.22));
         }
 
         .flow-agent-box h3 {
             font-size: 1.22rem;
             font-weight: 800;
-            color: #FFFFFF;
+            color: var(--ink);
             margin-bottom: 4px;
         }
 
         .flow-agent-box p {
             font-size: 0.88rem;
-            color: var(--dark-muted);
+            color: var(--muted);
             line-height: 1.35;
         }
 
@@ -971,25 +975,25 @@
         .exchange-title {
             font-size: 1.15rem;
             font-weight: 800;
-            color: #B8B0FF;
+            color: var(--primary-purple);
         }
 
         .exchange-arrow-graphic {
             display: flex;
             align-items: center;
             gap: 6px;
-            color: #B8B0FF;
+            color: var(--primary-purple);
             font-size: 1.2rem;
         }
 
         .exchange-sub {
             font-size: 0.82rem;
             font-weight: 600;
-            color: var(--dark-sub);
+            color: var(--muted);
         }
 
         .flow-arrow-down {
-            color: var(--mint);
+            color: var(--slate-primary);
             font-size: 1.35rem;
             display: flex;
             justify-content: center;
@@ -997,8 +1001,8 @@
         }
 
         .flow-initial-agreement {
-            background: var(--dark-teal);
-            border: 1px solid var(--dark-teal-border);
+            background: rgba(24, 52, 64, 0.06);
+            border: 1.5px solid rgba(24, 52, 64, 0.20);
             border-radius: 6px;
             padding: 12px 28px;
             text-align: center;
@@ -1008,13 +1012,13 @@
         .flow-initial-agreement h4 {
             font-size: 1.2rem;
             font-weight: 800;
-            color: #FFFFFF;
+            color: var(--ink);
             margin-bottom: 2px;
         }
 
         .flow-initial-agreement p {
             font-size: 0.88rem;
-            color: var(--dark-muted);
+            color: var(--ink-sec);
         }
 
         .flow-human-review-container {
@@ -1037,7 +1041,7 @@
             width: 52px;
             height: 52px;
             object-fit: contain;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+            filter: drop-shadow(0 4px 8px rgba(24, 52, 64, 0.22));
         }
 
         .flow-human-pill {
@@ -1046,7 +1050,7 @@
             border-radius: 6px;
             padding: 12px 36px;
             text-align: center;
-            box-shadow: 0 4px 18px rgba(108, 92, 231, 0.35);
+            box-shadow: 0 4px 16px rgba(193, 68, 36, 0.28);
             min-width: 320px;
         }
 
@@ -1060,8 +1064,8 @@
 
         .flow-human-sub {
             font-size: 0.92rem;
-            font-weight: 600;
-            color: #FFFFFF;
+            font-weight: 700;
+            color: var(--ink);
             text-align: center;
         }
 
@@ -1116,7 +1120,7 @@
             font-weight: 700;
         }
 
-        /* Slide 11 Pilot / Sub Split (Dark Slide) */
+        /* Slide 11 Pilot / Sub Split (Slide 16 Theme) */
         .pricing-cards-split {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1126,53 +1130,53 @@
         }
 
         .pricing-box {
-            background: var(--dark-card);
-            border: 1px solid var(--dark-border);
-            border-top: 4px solid var(--mint);
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-top: 4px solid var(--slate-primary);
             border-radius: 6px;
             padding: 20px;
-            box-shadow: var(--shadow-dark);
+            box-shadow: var(--shadow-sm);
             display: flex;
             flex-direction: column;
             gap: 6px;
         }
 
         .pricing-box.lavender-accent {
-            border-top-color: var(--lavender);
+            border-top-color: var(--primary-purple);
         }
 
         .pricing-price-val {
             font-size: 2.3rem;
             font-weight: 900;
-            color: var(--mint);
+            color: var(--slate-primary);
             line-height: 1;
             letter-spacing: -0.02em;
         }
 
         .pricing-price-val.lavender-color {
-            color: var(--lavender);
+            color: var(--primary-purple);
         }
 
         .pricing-title {
             font-size: 1.1rem;
             font-weight: 700;
-            color: #FFFFFF;
+            color: var(--ink);
         }
 
         .pricing-details {
             font-size: 0.88rem;
-            color: var(--dark-muted);
+            color: var(--muted);
             line-height: 1.4;
         }
 
         .banner-highlight-bar {
-            background: var(--dark-card);
-            border: 1px solid var(--dark-border);
+            background: var(--lavender-light);
+            border: 1px solid var(--lavender-border);
             border-radius: 4px;
             padding: 12px 16px;
             font-size: 1.05rem;
             font-weight: 800;
-            color: #FFFFFF;
+            color: var(--primary-purple);
             text-align: center;
         }
 
@@ -1209,7 +1213,7 @@
         }
 
         .arch-box.highlight-purple p {
-            color: #E2E0FF;
+            color: #FCEEE9;
         }
 
         .arch-box h4 {
@@ -1317,22 +1321,22 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
-            background: var(--primary-purple);
+            background: var(--slate-primary);
             color: #FFFFFF !important;
             text-decoration: none;
             font-size: 0.78rem;
             font-weight: 700;
             padding: 6px 14px;
-            border-radius: 4px;
+            border-radius: 6px;
             width: 100%;
             transition: background 0.15s ease;
         }
 
         .qr-pill-btn:hover {
-            background: var(--primary-purple-hover);
+            background: var(--slate-primary-hover);
         }
 
-        /* ==================== SLIDE 15 (DARK THEME & USE OF FUNDS) ==================== */
+        /* ==================== SLIDE 15 (SLIDE 16 THEME & USE OF FUNDS) ==================== */
         .slide15-split {
             display: grid;
             grid-template-columns: 0.85fr 1.15fr;
@@ -1341,26 +1345,12 @@
             width: 100%;
         }
 
-        .slide-dark .large-stat-card {
-            background: var(--dark-card);
-            border: 1px solid var(--dark-border);
-            border-left: 5px solid var(--mint);
-        }
-
-        .slide-dark .large-stat-card .stat-desc-lead {
-            color: #FFFFFF;
-        }
-
-        .slide-dark .large-stat-card .stat-desc-lead span {
-            color: var(--dark-muted);
-        }
-
         .dark-highlight-box {
-            background: rgba(162, 155, 254, 0.12);
-            border: 1px solid rgba(162, 155, 254, 0.35);
+            background: var(--lavender-light);
+            border: 1px solid var(--lavender-border);
             border-radius: 4px;
             padding: 12px 14px;
-            color: #B8B0FF;
+            color: var(--primary-purple);
             font-weight: 700;
             font-size: 1.05rem;
             line-height: 1.4;
@@ -2646,8 +2636,8 @@
             </div>
         </section>
 
-        <!-- ==================== SLIDE 8 (DARK THEME WITH 4 AVATARS) ==================== -->
-        <section class="slide-canvas slide-dark" id="slide-8" data-index="8">
+        <!-- ==================== SLIDE 8 (SLIDE 16 THEME WITH 4 AVATARS) ==================== -->
+        <section class="slide-canvas" id="slide-8" data-index="8">
             <div class="slide-head">
                 <h2 class="title">Buyer and supplier agents negotiate first</h2>
                 <div class="subtitle">Proposed capability: preliminary pricing agreement with a human decision at the end</div>
@@ -2787,7 +2777,7 @@
                                 <td>Automation for repetitive sourcing events</td>
                                 <td>Inventory, freight and cash trade-offs in buyer preparation</td>
                             </tr>
-                            <tr style="background: #F0EFFF;">
+                            <tr style="background: var(--lavender-light);">
                                 <td style="color: var(--primary-purple); font-weight: 800;">Finux Labs</td>
                                 <td><strong>Two working alpha tools</strong></td>
                                 <td><strong>Agent negotiation with human review and finance checks</strong></td>
@@ -2804,8 +2794,8 @@
             </div>
         </section>
 
-        <!-- ==================== SLIDE 11 (DARK THEME) ==================== -->
-        <section class="slide-canvas slide-dark" id="slide-11" data-index="11">
+        <!-- ==================== SLIDE 11 (SLIDE 16 THEME) ==================== -->
+        <section class="slide-canvas" id="slide-11" data-index="11">
             <div class="slide-head">
                 <h2 class="title">Subscription and transaction fees to validate</h2>
                 <div class="subtitle">Base pricing plus transaction-count and transaction-value fee options</div>
@@ -3022,8 +3012,8 @@
             </div>
         </section>
 
-        <!-- ==================== SLIDE 15 (DARK THEME) ==================== -->
-        <section class="slide-canvas slide-dark" id="slide-15" data-index="15">
+        <!-- ==================== SLIDE 15 (SLIDE 16 THEME) ==================== -->
+        <section class="slide-canvas" id="slide-15" data-index="15">
             <div class="slide-head">
                 <h2 class="title">An 18-month plan for C$200,000</h2>
                 <div class="subtitle">An 18-month seed plan for agent-assisted negotiation and three paid Canadian pilots</div>
@@ -3032,8 +3022,8 @@
             <div class="content-body">
                 <div class="slide15-split">
                     <div class="large-stat-card">
-                        <div class="giant-metric-number mint-variant">C$200k</div>
-                        <div class="stat-desc-lead">18 months · <span>≈C$11,100 monthly budget</span></div>
+                        <div class="giant-metric-number" style="color: var(--primary-purple);">C$200k</div>
+                        <div class="stat-desc-lead">18 months · <span style="color: var(--muted);">≈C$11,100 monthly budget</span></div>
                         <div class="dark-highlight-box">
                             Target: three paid pilots and initial recurring revenue.
                         </div>
