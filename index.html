@@ -545,7 +545,8 @@
                         <stop offset="100%" stop-color="#b5814d"/>
                     </linearGradient>
                     <linearGradient id="creekWater" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="#bed4bd"/>
+                        <stop offset="0%" stop-color="#65b7b0"/>
+                        <stop offset="10%" stop-color="#65b7b0"/>
                         <stop offset="100%" stop-color="#679e96"/>
                     </linearGradient>
                 </defs>
@@ -774,14 +775,16 @@
             function trailY(x) { return groundY(x) + 5 + near(x) * DEPTH; }
             function trailHalf(x) { return 2.2 + 6.5 * near(x); }
 
-            // Creeks spring from the ridge and widen as they flow toward the viewer
-            var creeks = [{ x0: 215, ph: 0.4, lean: 0.18 }, { x0: 565, ph: 2.2, lean: -0.14 }];
-            function creekTop(c) { return groundY(c.x0) + 3; }
+            // Broad creeks alternate between pools and constrictions at every distance.
+            var creeks = [{ x0: 215, ph: 0.4, lean: 0.18, width: 21 }, { x0: 565, ph: 2.2, lean: -0.14, width: 24 }];
+            // Begin at the local river/meadow shoreline, with only a small overlap into the water.
+            function creekTop(c) { return groundY(c.x0) - 2; }
             function creekU(c, y) { return Math.max(0, Math.min(1, (y - creekTop(c)) / (H + 4 - creekTop(c)))); }
             function creekX(c, y) { var u = creekU(c, y); return c.x0 + (y - creekTop(c)) * c.lean + (11 * Math.sin(y / 22 + c.ph) + 4 * Math.sin(y / 9 + c.ph)) * u; }
             function creekHalf(c, y) {
-                var u = creekU(c, y);
-                return 3 + 26 * u + (2 * Math.sin(y / 11 + c.ph) + Math.sin(y / 5 + c.ph)) * u;
+                var along = y - creekTop(c);
+                return c.width + 7 * Math.sin(along / 18 + c.ph)
+                    + 3 * Math.sin(along / 7 + c.ph * 1.7);
             }
 
             function wadingAt(x) {
@@ -859,15 +862,27 @@
             }
 
             function drawCreek(c, ox) {
-                var yT = creekTop(c), left = [], right = [], center = [];
+                var yT = creekTop(c), left = [], right = [], center = [], leftBank = [], rightBank = [];
                 for (var y = yT; y <= H + 4; y += 2) {
                     var cx = creekX(c, y) + ox, hw = creekHalf(c, y);
-                    left.push((cx - hw).toFixed(1) + ',' + y.toFixed(1));
-                    right.unshift((cx + hw).toFixed(1) + ',' + y.toFixed(1));
+                    // Each side meets its own shoreline height, avoiding long tongues over the river.
+                    var mouthBlend = Math.pow(Math.max(0, 1 - (y - yT) / 24), 2);
+                    var ly = y + mouthBlend * (groundY(cx - hw - ox) - 2 - yT);
+                    var ry = y + mouthBlend * (groundY(cx + hw - ox) - 2 - yT);
+                    var lp = (cx - hw).toFixed(1) + ',' + ly.toFixed(1);
+                    var rp = (cx + hw).toFixed(1) + ',' + ry.toFixed(1);
+                    left.push(lp);
+                    right.unshift(rp);
                     center.push(cx.toFixed(1) + ',' + y.toFixed(1));
+                    // Banks begin on land, leaving an open mouth into the river behind.
+                    if (ly >= groundY(cx - hw - ox) + 3) leftBank.push(lp);
+                    if (ry >= groundY(cx + hw - ox) + 3) rightBank.push(rp);
                 }
                 var shape = 'M' + left.join(' L') + ' L' + right.join(' L') + ' Z';
-                creekG.appendChild(el('path', { d: shape, fill: '#8b9072', stroke: '#839074', 'stroke-width': '5', 'stroke-linejoin': 'round', transform: 'translate(0,1.5)' }));
+                [leftBank, rightBank].forEach(function (bank) {
+                    if (bank.length < 2) return;
+                    creekG.appendChild(el('path', { d: 'M' + bank.join(' L'), fill: 'none', stroke: '#839074', 'stroke-width': '5', 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }));
+                });
                 creekG.appendChild(el('path', { d: shape, fill: 'url(#creekWater)' }));
                 creekG.appendChild(el('path', { d: 'M' + center.join(' L'), fill: 'none', stroke: '#e1f1e6', opacity: '0.65', 'stroke-width': '1.2', 'stroke-dasharray': '9 17 3 23', 'stroke-linecap': 'round', class: 'water-flow' }));
                 creekG.appendChild(el('path', { d: 'M' + center.join(' L'), fill: 'none', stroke: '#c4e0d4', opacity: '0.6', 'stroke-width': '0.9', 'stroke-dasharray': '4 21 7 15', transform: 'translate(4,0)', class: 'water-flow slow' }));
@@ -879,10 +894,17 @@
                     creekG.appendChild(el('ellipse', { cx: stoneX.toFixed(1), cy: ry.toFixed(1), rx: 2 + creekU(c, ry) * 2.5, ry: 1.1 + creekU(c, ry), fill: ['#a9aa96', '#8d998d', '#c4bf9e'][ri % 3], opacity: '0.85' }));
                     creekG.appendChild(el('path', { d: 'M' + (stoneX - 3).toFixed(1) + ',' + (ry + 2).toFixed(1) + ' q3,1.5 6,0', fill: 'none', stroke: '#e0ede0', 'stroke-width': '0.7', opacity: '0.65' }));
                 }
-                // Spring rocks at the source and reeds on the lower banks
-                var sx = c.x0 + ox;
-                creekG.appendChild(el('ellipse', { cx: sx - 4, cy: yT + 1, rx: 4, ry: 2.2, fill: '#9a9c94' }));
-                creekG.appendChild(el('ellipse', { cx: sx + 5, cy: yT + 2, rx: 3, ry: 1.8, fill: '#b2b4ac' }));
+                // Shoreline stones frame both sides of the inlet without blocking the connection.
+                [-1, 1].forEach(function (side) {
+                    for (var si = 0; si < 3; si++) {
+                        var bankY = groundY(c.x0) + 6 + si * 7;
+                        var bankX = creekX(c, bankY) + side * (creekHalf(c, bankY) + 2);
+                        var spring = el('g', { transform: 'translate(' + (bankX + ox).toFixed(1) + ',' + bankY.toFixed(1) + ')' });
+                        spring.appendChild(el('ellipse', { cx: 0, cy: 0, rx: 4 + si, ry: 2, fill: si % 2 ? '#839174' : '#a3a58d' }));
+                        spring.appendChild(el('path', { d: 'M-3,1 Q-5,-3 -6,-4 M0,1 Q-1,-4 1,-6 M2,1 Q4,-2 5,-3', fill: 'none', stroke: '#63805a', 'stroke-width': '1.1', 'stroke-linecap': 'round' }));
+                        creekG.appendChild(spring);
+                    }
+                });
                 [120, 150].forEach(function (ry, idx) {
                     if (ry < yT + 20) return;
                     var side = idx === 0 ? -1 : 1;
