@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400" role="img" aria-labelledby="title desc">
+<title id="title">Measure the outcome for each role</title><desc id="desc">An illustrative chart shows buyer-loss and supplier-loss outcomes. Two winding negotiation paths merge into a whirl ending at an agreement above both fallback baselines. The journey represents time and coordination cost, not a proven economic equilibrium.</desc>
+<defs>
+<pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#c8d5c6" opacity=".45"/></pattern>
+<marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#4a715f"/></marker>
+<marker id="journey-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L5 3L0 6Z" fill="#ac7639"/></marker>
+</defs>
+<rect width="640" height="400" rx="12" fill="#f7f5ea"/><rect x="14" y="14" width="612" height="372" rx="8" fill="url(#grid)" stroke="#cad5c7"/>
+<text x="37" y="61" font-family="system-ui,sans-serif" font-size="27" font-weight="650" fill="#23362e" text-anchor="start">Measure the outcome for each role</text><text x="37" y="93" font-family="system-ui,sans-serif" font-size="15" font-weight="650" fill="#4a715f" text-anchor="start">AGREEMENT QUALITY  /  HYPOTHETICAL ANNUAL GAINS</text><rect x="272" y="121" width="298" height="145" rx="8" fill="#dce9db"/><path d="M90 266L585 266" stroke="#4a715f" stroke-width="2" fill="none" marker-end="url(#arrow)"/><path d="M272 327L272 115" stroke="#4a715f" stroke-width="2" fill="none" marker-end="url(#arrow)"/><text x="575" y="295" font-family="system-ui,sans-serif" font-size="18" font-weight="650" fill="#23362e" text-anchor="end">Buyer gain</text><text x="289" y="134" font-family="system-ui,sans-serif" font-size="18" font-weight="650" fill="#23362e" text-anchor="start">Supplier gain</text><text x="250" y="291" font-family="system-ui,sans-serif" font-size="17" font-weight="650" fill="#23362e" text-anchor="start">0</text>
+<!-- Loss-making offers converge through costly negotiation rounds. -->
+<g id="negotiation-journey" fill="none" stroke="#ac7639" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+ <path id="buyer-journey" d="M182 207 C143 220 163 252 215 248 S306 211 345 222"/>
+ <path id="supplier-journey" d="M365 310 C415 312 421 277 385 260 S324 251 345 222"/>
+ <path id="agreement-whirl" d="M345 222 C299 193 329 153 372 163 C418 173 426 213 388 222 C352 231 346 197 373 186 Q390 177 404 182" marker-end="url(#journey-arrow)"/>
+</g>
+<circle cx="365" cy="310" r="7" fill="#a74631"/>
+<text x="382" y="330" font-family="system-ui,sans-serif" font-size="16" font-weight="650" fill="#23362e">Supplier loses</text>
+<circle cx="404" cy="182" r="7" fill="#4a715f"/><text x="418" y="179" font-family="system-ui,sans-serif" font-size="16" font-weight="650" fill="#23362e" text-anchor="start">Both above fallback</text><circle cx="182" cy="207" r="7" fill="#a74631"/><text x="180" y="185" font-family="system-ui,sans-serif" font-size="16" font-weight="650" fill="#23362e" text-anchor="middle">Buyer loses</text><text x="320" y="355" font-family="system-ui,sans-serif" font-size="17" font-weight="650" fill="#4a715f" text-anchor="middle">The green region clears both economic floors.</text>
+<path d="M139 374 h26" fill="none" stroke="#ac7639" stroke-width="2.5" marker-end="url(#journey-arrow)"/>
+<text x="179" y="379" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#805628">Journey to agreement: time + coordination cost</text>
+</svg>

@@ -444,7 +444,7 @@
             color: var(--ink);
         }
 
-        /* Dark Tables (Slide 11 & Slide 15) */
+        /* Dark Tables (Slide 12 & Slide 15) */
         .slide-dark .deck-table {
             background: var(--dark-card);
             border: 1px solid var(--dark-border);
@@ -709,7 +709,80 @@
             line-height: 1.4;
         }
 
-        /* Slide 5 & 7 Product Mockup Slides */
+        #slide-3 .big-callout-text {
+            font-size: 1.45rem;
+            margin-bottom: 10px;
+        }
+
+        #slide-3 .stakeholder-tags {
+            font-size: 0.85rem;
+            margin-bottom: 14px;
+        }
+
+        #slide-3 .steps-stack {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        #slide-3 .step-item-card {
+            padding: 10px;
+        }
+
+        @media (max-width: 600px) {
+            #slide-3 .steps-stack {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .decision-assistant-layout,
+        .outcome-space-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            align-items: center;
+            gap: 24px;
+            min-height: 0;
+        }
+
+        #slide-4 .process-cards-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin-bottom: 0;
+        }
+
+        #slide-4 .process-card {
+            padding: 12px;
+            gap: 6px;
+        }
+
+        .feasible-interval-figure,
+        .outcome-space-figure {
+            margin: 0;
+            min-width: 0;
+        }
+
+        .feasible-interval-figure img,
+        .outcome-space-figure img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 880px) {
+            .decision-assistant-layout,
+            .outcome-space-layout {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            #slide-4 .process-cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Slide 7 & 7 Product Mockup Slides */
         .app-screenshot-frame {
             width: 100%;
             max-height: 340px;
@@ -789,7 +862,7 @@
             margin-bottom: 14px;
         }
 
-        /* Slide 6 Stacked Bar Chart */
+        /* Slide 8 Stacked Bar Chart */
         .chart-container-split {
             display: grid;
             grid-template-columns: 1.35fr 0.65fr;
@@ -905,7 +978,7 @@
             line-height: 1.35;
         }
 
-        /* ==================== SLIDE 8 FLOWCHART (SLIDE 16 THEME WITH AVATARS) ==================== */
+        /* ==================== SLIDE 5 FLOWCHART (SLIDE 16 THEME WITH AVATARS) ==================== */
         .negotiation-flowchart {
             display: flex;
             flex-direction: column;
@@ -1069,7 +1142,7 @@
             text-align: center;
         }
 
-        /* Slide 9 Specifics */
+        /* Slide 10 Specifics */
         .large-stat-card {
             background: var(--white);
             border: 1px solid var(--line);
@@ -1120,7 +1193,7 @@
             font-weight: 700;
         }
 
-        /* Slide 11 Pilot / Sub Split (Slide 16 Theme) */
+        /* Slide 12 Pilot / Sub Split (Slide 16 Theme) */
         .pricing-cards-split {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1180,7 +1253,64 @@
             text-align: center;
         }
 
-        /* Slide 13 Architecture 6-Box Grid */
+        .delegation-evidence-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            align-items: center;
+            gap: 24px;
+            min-height: 0;
+        }
+
+        .delegation-infographic {
+            margin: 0;
+            min-width: 0;
+        }
+
+        .delegation-infographic img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 320px;
+            object-fit: contain;
+        }
+
+        #slide-6 .arch-grid-container {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin-bottom: 0;
+        }
+
+        #slide-6 .arch-box {
+            padding: 10px;
+            min-height: 80px;
+        }
+
+        #slide-6 .arch-box h4 {
+            font-size: 0.95rem;
+        }
+
+        #slide-6 .arch-box p {
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 880px) {
+            .delegation-evidence-layout {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .delegation-infographic img {
+                max-height: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            #slide-6 .arch-grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Slide 6 Architecture 6-Box Grid */
         .arch-grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -1681,8 +1811,8 @@
                 gap: 12px;
             }
 
-            /* Slide 8 Flowchart Mobile (Preserve Desktop Layout) */
-            #slide-8 .content-body {
+            /* Slide 5 Flowchart Mobile (Preserve Desktop Layout) */
+            #slide-5 .content-body {
                 display: flex !important;
                 flex-direction: column !important;
                 justify-content: center !important;
@@ -2009,8 +2139,8 @@
                 padding-right: 8px;
             }
 
-            /* Slide 8 Flowchart Handheld Mobile (Preserve Desktop Layout) */
-            #slide-8 .content-body {
+            /* Slide 5 Flowchart Handheld Mobile (Preserve Desktop Layout) */
+            #slide-5 .content-body {
                 padding-top: 14px;
             }
 
@@ -2321,15 +2451,15 @@
                     <option value="slide-2">02: Supplier Sourcing Complexity</option>
                     <option value="slide-3">03: Coordination Costs</option>
                     <option value="slide-4">04: Decision Assistant</option>
-                    <option value="slide-5">05: Supplier Cost Explorer</option>
-                    <option value="slide-6">06: ABC Cost Assessment</option>
-                    <option value="slide-7">07: Finance Decision Intelligence</option>
-                    <option value="slide-8">08: Dual-Agent Negotiation</option>
-                    <option value="slide-9">09: Canadian Entry Market</option>
-                    <option value="slide-10">10: Market Positioning</option>
-                    <option value="slide-11">11: Pricing & Economics</option>
-                    <option value="slide-12">12: Paid Pilot Validation</option>
-                    <option value="slide-13">13: Decision Evidence</option>
+                    <option value="slide-5">05: Dual-Agent Negotiation</option>
+                    <option value="slide-6">06: Decision Evidence</option>
+                    <option value="slide-7">07: Supplier Cost Explorer</option>
+                    <option value="slide-8">08: ABC Cost Assessment</option>
+                    <option value="slide-9">09: Finance Decision Intelligence</option>
+                    <option value="slide-10">10: Canadian Entry Market</option>
+                    <option value="slide-11">11: Market Positioning</option>
+                    <option value="slide-12">12: Pricing & Economics</option>
+                    <option value="slide-13">13: Paid Pilot Validation</option>
                     <option value="slide-14">14: Founder & Execution</option>
                     <option value="slide-15">15: 18-Month Plan</option>
                     <option value="slide-16">16: AI Summit Vancouver 2026</option>
@@ -2398,7 +2528,7 @@
             </div>
 
             <div class="content-body">
-                <div class="two-column">
+                <div class="outcome-space-layout">
                     <div>
                         <div class="big-callout-text">
                             Each pricing round adds time and coordination cost
@@ -2407,26 +2537,29 @@
                             <strong>Buyer:</strong> procurement manager<br>
                             <strong>Partner:</strong> finance and operations
                         </div>
+                        <div class="steps-stack">
+                            <div class="step-item-card">
+                                <h4>Pricing rounds</h4>
+                                <p>Repeated offers and clarifications stretch time to agreement.</p>
+                            </div>
+                            <div class="step-item-card">
+                                <h4>Coordination</h4>
+                                <p>Teams reconcile price, volume, freight and delivery terms.</p>
+                            </div>
+                            <div class="step-item-card">
+                                <h4>Rework</h4>
+                                <p>Revised quotes trigger new comparisons and internal reviews.</p>
+                            </div>
+                            <div class="step-item-card">
+                                <h4>Approval</h4>
+                                <p>Decision makers need clear terms and a traceable agreement.</p>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="steps-stack">
-                        <div class="step-item-card">
-                            <h4>Pricing rounds</h4>
-                            <p>Repeated offers and clarifications stretch time to agreement.</p>
-                        </div>
-                        <div class="step-item-card">
-                            <h4>Coordination</h4>
-                            <p>Teams reconcile price, volume, freight and delivery terms.</p>
-                        </div>
-                        <div class="step-item-card">
-                            <h4>Rework</h4>
-                            <p>Revised quotes trigger new comparisons and internal reviews.</p>
-                        </div>
-                        <div class="step-item-card">
-                            <h4>Approval</h4>
-                            <p>Decision makers need clear terms and a traceable agreement.</p>
-                        </div>
-                    </div>
+                    <figure class="outcome-space-figure">
+                        <img src="assets/outcome-space.svg" width="640" height="400"
+                            alt="Illustrative agreement outcomes: winding paths from buyer-loss and supplier-loss offers merge into a whirl toward an agreement above both fallback baselines, representing time and coordination cost.">
+                    </figure>
                 </div>
             </div>
 
@@ -2445,27 +2578,34 @@
             </div>
 
             <div class="content-body">
-                <div class="process-cards-grid">
-                    <div class="process-card">
-                        <div class="step-num-badge">01</div>
-                        <h3>Set the strategy</h3>
-                        <p>Define demand, service targets, budget and sourcing constraints.</p>
+                <div class="decision-assistant-layout">
+                    <div class="process-cards-grid">
+                        <div class="process-card">
+                            <div class="step-num-badge">01</div>
+                            <h3>Set the strategy</h3>
+                            <p>Define demand, service targets, budget and sourcing constraints.</p>
+                        </div>
+                        <div class="process-card">
+                            <div class="step-num-badge">02</div>
+                            <h3>Compare the bids</h3>
+                            <p>Normalize supplier terms and calculate total annual cost.</p>
+                        </div>
+                        <div class="process-card">
+                            <div class="step-num-badge">03</div>
+                            <h3>Agents negotiate</h3>
+                            <p>Buyer and Supplier Agents exchange offers within agreed limits.</p>
+                        </div>
+                        <div class="process-card">
+                            <div class="step-num-badge">04</div>
+                            <h3>People decide</h3>
+                            <p>Review initial terms, refine details or approve the agreement.</p>
+                        </div>
                     </div>
-                    <div class="process-card">
-                        <div class="step-num-badge">02</div>
-                        <h3>Compare the bids</h3>
-                        <p>Normalize supplier terms and calculate total annual cost.</p>
-                    </div>
-                    <div class="process-card">
-                        <div class="step-num-badge">03</div>
-                        <h3>Agents negotiate</h3>
-                        <p>Buyer and Supplier Agents exchange offers within agreed limits.</p>
-                    </div>
-                    <div class="process-card">
-                        <div class="step-num-badge">04</div>
-                        <h3>People decide</h3>
-                        <p>Review initial terms, refine details or approve the agreement.</p>
-                    </div>
+
+                    <figure class="feasible-interval-figure">
+                        <img src="assets/feasible-interval.svg" width="640" height="400"
+                            alt="Feasible unit-price interval for ABC Electronics: supplier floor C$1.1099 to buyer ceiling C$1.1277. C$1.11 and C$1.12 satisfy both limits.">
+                    </figure>
                 </div>
 
                 <div class="iris-highlight-box" style="text-align: center;">
@@ -2480,8 +2620,131 @@
             </div>
         </section>
 
-        <!-- ==================== SLIDE 5 (LIGHT THEME) ==================== -->
+        <!-- ==================== SLIDE 5 (SLIDE 16 THEME WITH 4 AVATARS) ==================== -->
         <section class="slide-canvas" id="slide-5" data-index="5">
+            <div class="slide-head">
+                <h2 class="title">Buyer and supplier agents negotiate first</h2>
+                <div class="subtitle">Proposed capability: preliminary pricing agreement with a human decision at the end</div>
+            </div>
+
+            <div class="content-body">
+                <div class="negotiation-flowchart">
+                    <!-- Top Row: Buyer & Supplier Agents with Robot Avatars -->
+                    <div class="flow-top-row">
+                        <div class="flow-agent-box">
+                            <div class="flow-avatar-wrapper">
+                                <img src="assets/avatar_robot_buyer.png" alt="Buyer Procuring Agent Avatar" class="flow-avatar-top">
+                            </div>
+                            <h3>Buyer Procuring Agent</h3>
+                            <p>Target cost, demand, volume and service constraints</p>
+                        </div>
+                        <div class="flow-exchange-center">
+                            <div class="exchange-title">Offer / counteroffer</div>
+                            <div class="exchange-arrow-graphic">
+                                <i class="fa-solid fa-arrow-left-long"></i>
+                                <i class="fa-solid fa-arrow-right-long"></i>
+                            </div>
+                            <div class="exchange-sub">Within authorized limits</div>
+                        </div>
+                        <div class="flow-agent-box">
+                            <div class="flow-avatar-wrapper">
+                                <img src="assets/avatar_robot_supplier.png" alt="Supplier Agent Avatar" class="flow-avatar-top">
+                            </div>
+                            <h3>Supplier Agent</h3>
+                            <p>Price bounds, capacity, freight and delivery limits</p>
+                        </div>
+                    </div>
+
+                    <div class="flow-arrow-down"><i class="fa-solid fa-arrow-down-long"></i></div>
+
+                    <!-- Middle: Initial Agreement -->
+                    <div class="flow-initial-agreement">
+                        <h4>Initial agreement</h4>
+                        <p>Proposed pricing and terms</p>
+                    </div>
+
+                    <div class="flow-arrow-down"><i class="fa-solid fa-arrow-down-long"></i></div>
+
+                    <!-- Bottom: Human Decision Flanked by Avatars -->
+                    <div class="flow-human-review-container">
+                        <div class="flow-human-row">
+                            <img src="assets/avatar_human_male.png" alt="Human Reviewer Male Avatar" class="flow-avatar-human">
+                            <div class="flow-human-pill">
+                                <h3>Human review and decision</h3>
+                            </div>
+                            <img src="assets/avatar_human_female.png" alt="Human Reviewer Female Avatar" class="flow-avatar-human">
+                        </div>
+                        <div class="flow-human-sub">Review details, revise or approve</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-foot">
+                <div class="foot-brand">Finux Labs</div>
+                <div class="foot-note">Roadmap capability. Agents propose terms. Authorized people review, refine or approve the final agreement.</div>
+                <div class="foot-num">05</div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 6 (LIGHT THEME) ==================== -->
+        <section class="slide-canvas" id="slide-6" data-index="6">
+            <div class="slide-head">
+                <h2 class="title">The evidence behind each decision</h2>
+                <div class="subtitle">Proposed agent negotiation with deterministic cost checks and human approval</div>
+            </div>
+
+            <div class="content-body">
+                <div class="delegation-evidence-layout">
+                    <div class="arch-grid-container">
+                        <div class="arch-box">
+                            <h4>Quotations and mandates</h4>
+                            <p>Source-linked inputs</p>
+                        </div>
+                        <div class="arch-box">
+                            <h4>Buyer / Supplier Agents</h4>
+                            <p>Mandate-bound negotiation</p>
+                        </div>
+                        <div class="arch-box">
+                            <h4>Cost engine</h4>
+                            <p>Verified calculations</p>
+                        </div>
+                        <div class="arch-box">
+                            <h4>Initial agreement</h4>
+                            <p>Human review and approval</p>
+                        </div>
+                        <div class="arch-box highlight-purple">
+                            <h4>Human review and approval</h4>
+                            <p>Authorized final decision</p>
+                        </div>
+                        <div class="arch-box">
+                            <h4>Finance impact</h4>
+                            <p>Cash and payment scenarios</p>
+                        </div>
+                    </div>
+
+                    <figure class="delegation-infographic">
+                        <a href="assets/Light%20procurement%20AI%20delegation%20infographic.png" target="_blank" rel="noopener"
+                            aria-label="View the procurement AI delegation infographic at full size">
+                            <img src="assets/Light%20procurement%20AI%20delegation%20infographic.png" width="1536" height="1024"
+                                alt="The double principal-agent problem: buyer and supplier teams delegate to AI agents that exchange offers. Alignment, mandate drift and loyalty risk require private limits and human approval. Adapted from @AdnanMasood.">
+                        </a>
+                    </figure>
+                </div>
+
+                <div class="iris-highlight-box" style="margin-top: 6px; text-align: center;">
+                    Approved terms and records · ERP integration roadmap
+                </div>
+            </div>
+
+            <div class="slide-foot">
+                <div class="foot-brand">Finux Labs</div>
+                <div class="foot-note">Potential defensibility: approved term histories, cost-model coverage and measurable customer outcomes.</div>
+                <div class="foot-num">06</div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 7 (LIGHT THEME) ==================== -->
+        <section class="slide-canvas" id="slide-7" data-index="7">
             <div class="slide-head">
                 <h2 class="title">Supplier Cost Explorer</h2>
                 <div class="subtitle">Working alpha for transparent supplier cost assessment</div>
@@ -2513,12 +2776,12 @@
             <div class="slide-foot">
                 <div class="foot-brand">Finux Labs</div>
                 <div class="foot-note">ABC Electronics illustrative case, USD. Demonstration data. Alpha status does not establish commercial traction.</div>
-                <div class="foot-num">05</div>
+                <div class="foot-num">07</div>
             </div>
         </section>
 
-        <!-- ==================== SLIDE 6 (LIGHT THEME) ==================== -->
-        <section class="slide-canvas" id="slide-6" data-index="6">
+        <!-- ==================== SLIDE 8 (LIGHT THEME) ==================== -->
+        <section class="slide-canvas" id="slide-8" data-index="8">
             <div class="slide-head">
                 <h2 class="title">The ABC Electronics cost assessment</h2>
                 <div class="subtitle">Three supplier bids evaluated on the same demand and service assumptions</div>
@@ -2593,12 +2856,12 @@
             <div class="slide-foot">
                 <div class="foot-brand">Finux Labs</div>
                 <div class="foot-note">Illustrative annual costs in USD. 52 weeks, 95% cycle service, price-only inventory value. Supplier 3 freight: $7.25/100 lb.</div>
-                <div class="foot-num">06</div>
+                <div class="foot-num">08</div>
             </div>
         </section>
 
-        <!-- ==================== SLIDE 7 (LIGHT THEME) ==================== -->
-        <section class="slide-canvas" id="slide-7" data-index="7">
+        <!-- ==================== SLIDE 9 (LIGHT THEME) ==================== -->
+        <section class="slide-canvas" id="slide-9" data-index="9">
             <div class="slide-head">
                 <h2 class="title">Finance Decision Intelligence</h2>
                 <div class="subtitle">Working alpha for financial visibility and supplier payment planning</div>
@@ -2632,78 +2895,12 @@
             <div class="slide-foot">
                 <div class="foot-brand">Finux Labs</div>
                 <div class="foot-note">Actual guest sample workspace. Displayed financial values are USD demonstration data, not Finux Labs results.</div>
-                <div class="foot-num">07</div>
+                <div class="foot-num">09</div>
             </div>
         </section>
 
-        <!-- ==================== SLIDE 8 (SLIDE 16 THEME WITH 4 AVATARS) ==================== -->
-        <section class="slide-canvas" id="slide-8" data-index="8">
-            <div class="slide-head">
-                <h2 class="title">Buyer and supplier agents negotiate first</h2>
-                <div class="subtitle">Proposed capability: preliminary pricing agreement with a human decision at the end</div>
-            </div>
-
-            <div class="content-body">
-                <div class="negotiation-flowchart">
-                    <!-- Top Row: Buyer & Supplier Agents with Robot Avatars -->
-                    <div class="flow-top-row">
-                        <div class="flow-agent-box">
-                            <div class="flow-avatar-wrapper">
-                                <img src="assets/avatar_robot_buyer.png" alt="Buyer Procuring Agent Avatar" class="flow-avatar-top">
-                            </div>
-                            <h3>Buyer Procuring Agent</h3>
-                            <p>Target cost, demand, volume and service constraints</p>
-                        </div>
-                        <div class="flow-exchange-center">
-                            <div class="exchange-title">Offer / counteroffer</div>
-                            <div class="exchange-arrow-graphic">
-                                <i class="fa-solid fa-arrow-left-long"></i>
-                                <i class="fa-solid fa-arrow-right-long"></i>
-                            </div>
-                            <div class="exchange-sub">Within authorized limits</div>
-                        </div>
-                        <div class="flow-agent-box">
-                            <div class="flow-avatar-wrapper">
-                                <img src="assets/avatar_robot_supplier.png" alt="Supplier Agent Avatar" class="flow-avatar-top">
-                            </div>
-                            <h3>Supplier Agent</h3>
-                            <p>Price bounds, capacity, freight and delivery limits</p>
-                        </div>
-                    </div>
-
-                    <div class="flow-arrow-down"><i class="fa-solid fa-arrow-down-long"></i></div>
-
-                    <!-- Middle: Initial Agreement -->
-                    <div class="flow-initial-agreement">
-                        <h4>Initial agreement</h4>
-                        <p>Proposed pricing and terms</p>
-                    </div>
-
-                    <div class="flow-arrow-down"><i class="fa-solid fa-arrow-down-long"></i></div>
-
-                    <!-- Bottom: Human Decision Flanked by Avatars -->
-                    <div class="flow-human-review-container">
-                        <div class="flow-human-row">
-                            <img src="assets/avatar_human_male.png" alt="Human Reviewer Male Avatar" class="flow-avatar-human">
-                            <div class="flow-human-pill">
-                                <h3>Human review and decision</h3>
-                            </div>
-                            <img src="assets/avatar_human_female.png" alt="Human Reviewer Female Avatar" class="flow-avatar-human">
-                        </div>
-                        <div class="flow-human-sub">Review details, revise or approve</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="slide-foot">
-                <div class="foot-brand">Finux Labs</div>
-                <div class="foot-note">Roadmap capability. Agents propose terms. Authorized people review, refine or approve the final agreement.</div>
-                <div class="foot-num">08</div>
-            </div>
-        </section>
-
-        <!-- ==================== SLIDE 9 (LIGHT THEME) ==================== -->
-        <section class="slide-canvas" id="slide-9" data-index="9">
+        <!-- ==================== SLIDE 10 (LIGHT THEME) ==================== -->
+        <section class="slide-canvas" id="slide-10" data-index="10">
             <div class="slide-head">
                 <h2 class="title">A focused Canadian entry market</h2>
                 <div class="subtitle">Manufacturing and wholesale SMEs provide a starting universe, not a qualified customer list</div>
@@ -2740,12 +2937,12 @@
             <div class="slide-foot">
                 <div class="foot-brand">Finux Labs</div>
                 <div class="foot-note">ISED, Key Small Business Statistics 2025, December 2024 counts. Fit rate and subscription value below are planning assumptions.</div>
-                <div class="foot-num">09</div>
+                <div class="foot-num">10</div>
             </div>
         </section>
 
-        <!-- ==================== SLIDE 10 (LIGHT THEME) ==================== -->
-        <section class="slide-canvas" id="slide-10" data-index="10">
+        <!-- ==================== SLIDE 11 (LIGHT THEME) ==================== -->
+        <section class="slide-canvas" id="slide-11" data-index="11">
             <div class="slide-head">
                 <h2 class="title">A focused position in an active market</h2>
                 <div class="subtitle">Proposed focus: agent negotiation with traceable costs and a human approval step</div>
@@ -2790,12 +2987,12 @@
             <div class="slide-foot">
                 <div class="foot-brand">Finux Labs</div>
                 <div class="foot-note">Competitor scope reflects official descriptions. Finux Labs’ dual-agent negotiation and finance connection remain planned.</div>
-                <div class="foot-num">10</div>
+                <div class="foot-num">11</div>
             </div>
         </section>
 
-        <!-- ==================== SLIDE 11 (SLIDE 16 THEME) ==================== -->
-        <section class="slide-canvas" id="slide-11" data-index="11">
+        <!-- ==================== SLIDE 12 (SLIDE 16 THEME) ==================== -->
+        <section class="slide-canvas" id="slide-12" data-index="12">
             <div class="slide-head">
                 <h2 class="title">Subscription and transaction fees to validate</h2>
                 <div class="subtitle">Base pricing plus transaction-count and transaction-value fee options</div>
@@ -2851,12 +3048,12 @@
             <div class="slide-foot">
                 <div class="foot-brand">Finux Labs</div>
                 <div class="foot-note">All prices USD. Usage rates and whether fees combine remain to validate. Pilot fees do not count as subscription ARR.</div>
-                <div class="foot-num">11</div>
+                <div class="foot-num">12</div>
             </div>
         </section>
 
-        <!-- ==================== SLIDE 12 (LIGHT THEME) ==================== -->
-        <section class="slide-canvas" id="slide-12" data-index="12">
+        <!-- ==================== SLIDE 13 (LIGHT THEME) ==================== -->
+        <section class="slide-canvas" id="slide-13" data-index="13">
             <div class="slide-head">
                 <h2 class="title">Three paid pilots establish the first proof</h2>
                 <div class="subtitle">A founder-led entry through Canadian manufacturing and distribution networks</div>
@@ -2896,53 +3093,6 @@
             <div class="slide-foot">
                 <div class="foot-brand">Finux Labs</div>
                 <div class="foot-note">Finux Labs Pitch Deck · Confidential</div>
-                <div class="foot-num">12</div>
-            </div>
-        </section>
-
-        <!-- ==================== SLIDE 13 (LIGHT THEME) ==================== -->
-        <section class="slide-canvas" id="slide-13" data-index="13">
-            <div class="slide-head">
-                <h2 class="title">The evidence behind each decision</h2>
-                <div class="subtitle">Proposed agent negotiation with deterministic cost checks and human approval</div>
-            </div>
-
-            <div class="content-body">
-                <div class="arch-grid-container">
-                    <div class="arch-box">
-                        <h4>Quotations and mandates</h4>
-                        <p>Source-linked inputs</p>
-                    </div>
-                    <div class="arch-box">
-                        <h4>Buyer / Supplier Agents</h4>
-                        <p>Mandate-bound negotiation</p>
-                    </div>
-                    <div class="arch-box">
-                        <h4>Cost engine</h4>
-                        <p>Verified calculations</p>
-                    </div>
-                    <div class="arch-box">
-                        <h4>Initial agreement</h4>
-                        <p>Human review and approval</p>
-                    </div>
-                    <div class="arch-box highlight-purple">
-                        <h4>Human review and approval</h4>
-                        <p>Authorized final decision</p>
-                    </div>
-                    <div class="arch-box">
-                        <h4>Finance impact</h4>
-                        <p>Cash and payment scenarios</p>
-                    </div>
-                </div>
-
-                <div class="iris-highlight-box" style="margin-top: 6px; text-align: center;">
-                    Approved terms and records · ERP integration roadmap
-                </div>
-            </div>
-
-            <div class="slide-foot">
-                <div class="foot-brand">Finux Labs</div>
-                <div class="foot-note">Potential defensibility: approved term histories, cost-model coverage and measurable customer outcomes.</div>
                 <div class="foot-num">13</div>
             </div>
         </section>
