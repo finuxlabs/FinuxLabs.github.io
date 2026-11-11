@@ -8,7 +8,7 @@
     <link rel="canonical" href="docs/index.html">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
     <style>
         :root {
             --sky-top: #9fc7d0;
@@ -538,9 +538,15 @@
                         <stop offset="45%" stop-color="#86a873"/>
                         <stop offset="100%" stop-color="#688d68"/>
                     </linearGradient>
+                    <linearGradient id="signWood" x1="0" y1="0" x2="0.15" y2="1">
+                        <stop offset="0%" stop-color="#e1bc83"/>
+                        <stop offset="35%" stop-color="#c99a60"/>
+                        <stop offset="65%" stop-color="#d8ad73"/>
+                        <stop offset="100%" stop-color="#b5814d"/>
+                    </linearGradient>
                     <linearGradient id="creekWater" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="#c5ded5"/>
-                        <stop offset="100%" stop-color="#83b6b2"/>
+                        <stop offset="0%" stop-color="#bed4bd"/>
+                        <stop offset="100%" stop-color="#679e96"/>
                     </linearGradient>
                 </defs>
                 <g id="terrainTrack">
@@ -557,6 +563,8 @@
                     <!-- Ridge-top rocks, cairn & marker -->
                     <g id="ridgeDecor"></g>
                 </g>
+                <!-- One set of signs follows the journey without repeating with the terrain. -->
+                <g id="roadSigns" role="img" aria-label="The plan: $0, one niche, run the site, take the prod, Agent work w/ you, 2 clients, $1B"></g>
             </svg>
 
             <svg class="snowfall" viewBox="0 0 760 330" preserveAspectRatio="none">
@@ -741,6 +749,8 @@
             var P = 760;   // terrain tile period (viewBox units)
             var H = 170;   // terrain svg height (px == viewBox units vertically)
             var TAU = Math.PI * 2;
+            var JOURNEY_SECONDS = 24;
+            var JOURNEY_DISTANCE = P * 4;
             var DEPTH = 65; // how far down the meadow face the trail swings when nearest the viewer
 
             function mod(x) { return ((x % P) + P) % P; }
@@ -768,8 +778,11 @@
             var creeks = [{ x0: 215, ph: 0.4, lean: 0.18 }, { x0: 565, ph: 2.2, lean: -0.14 }];
             function creekTop(c) { return groundY(c.x0) + 3; }
             function creekU(c, y) { return Math.max(0, Math.min(1, (y - creekTop(c)) / (H + 4 - creekTop(c)))); }
-            function creekX(c, y) { var u = creekU(c, y); return c.x0 + (y - creekTop(c)) * c.lean + 9 * Math.sin(y / 13 + c.ph) * u; }
-            function creekHalf(c, y) { return 1.5 + 15 * creekU(c, y); }
+            function creekX(c, y) { var u = creekU(c, y); return c.x0 + (y - creekTop(c)) * c.lean + (11 * Math.sin(y / 22 + c.ph) + 4 * Math.sin(y / 9 + c.ph)) * u; }
+            function creekHalf(c, y) {
+                var u = creekU(c, y);
+                return 3 + 26 * u + (2 * Math.sin(y / 11 + c.ph) + Math.sin(y / 5 + c.ph)) * u;
+            }
 
             function wadingAt(x) {
                 var y = trailY(x);
@@ -854,10 +867,18 @@
                     center.push(cx.toFixed(1) + ',' + y.toFixed(1));
                 }
                 var shape = 'M' + left.join(' L') + ' L' + right.join(' L') + ' Z';
-                creekG.appendChild(el('path', { d: shape, fill: '#607d68', transform: 'translate(0,1.5)' }));
+                creekG.appendChild(el('path', { d: shape, fill: '#8b9072', stroke: '#839074', 'stroke-width': '5', 'stroke-linejoin': 'round', transform: 'translate(0,1.5)' }));
                 creekG.appendChild(el('path', { d: shape, fill: 'url(#creekWater)' }));
-                creekG.appendChild(el('path', { d: 'M' + center.join(' L'), fill: 'none', stroke: '#e6f7fd', 'stroke-width': '1.6', 'stroke-dasharray': '6 10', 'stroke-linecap': 'round', class: 'water-flow' }));
-                creekG.appendChild(el('path', { d: 'M' + center.join(' L'), fill: 'none', stroke: '#c4ecfa', 'stroke-width': '1.1', 'stroke-dasharray': '3 14', transform: 'translate(4,0)', class: 'water-flow slow' }));
+                creekG.appendChild(el('path', { d: 'M' + center.join(' L'), fill: 'none', stroke: '#e1f1e6', opacity: '0.65', 'stroke-width': '1.2', 'stroke-dasharray': '9 17 3 23', 'stroke-linecap': 'round', class: 'water-flow' }));
+                creekG.appendChild(el('path', { d: 'M' + center.join(' L'), fill: 'none', stroke: '#c4e0d4', opacity: '0.6', 'stroke-width': '0.9', 'stroke-dasharray': '4 21 7 15', transform: 'translate(4,0)', class: 'water-flow slow' }));
+                // Rounded bank stones and shallow-water pebbles follow the meanders.
+                for (var ri = 0; ri < 9; ri++) {
+                    var ry = yT + 10 + ri * (H - yT - 18) / 9;
+                    var side = ri % 2 ? -1 : 1;
+                    var stoneX = creekX(c, ry) + ox + side * (creekHalf(c, ry) - 1);
+                    creekG.appendChild(el('ellipse', { cx: stoneX.toFixed(1), cy: ry.toFixed(1), rx: 2 + creekU(c, ry) * 2.5, ry: 1.1 + creekU(c, ry), fill: ['#a9aa96', '#8d998d', '#c4bf9e'][ri % 3], opacity: '0.85' }));
+                    creekG.appendChild(el('path', { d: 'M' + (stoneX - 3).toFixed(1) + ',' + (ry + 2).toFixed(1) + ' q3,1.5 6,0', fill: 'none', stroke: '#e0ede0', 'stroke-width': '0.7', opacity: '0.65' }));
+                }
                 // Spring rocks at the source and reeds on the lower banks
                 var sx = c.x0 + ox;
                 creekG.appendChild(el('ellipse', { cx: sx - 4, cy: yT + 1, rx: 4, ry: 2.2, fill: '#9a9c94' }));
@@ -888,6 +909,91 @@
                 });
             }
 
+            // ---- Roadside plan signs: $0 -> one niche -> ... -> $1B, standing beside the trail ----
+            var signG = document.getElementById('roadSigns');
+            var SIGN_FONT = "'Patrick Hand', 'Comic Sans MS', 'Marker Felt', cursive";
+            var planSigns = [
+                { lines: ['$0'], arrow: true, fill: 'url(#signWood)', w: 44, h: 24, fs: 17, tilt: -2 },
+                { lines: ['one', 'niche'], fill: 'url(#signWood)', w: 62, h: 36, fs: 13.5, tilt: 3 },
+                { lines: ['run', 'the site'], fill: 'url(#signWood)', w: 68, h: 36, fs: 13.5, tilt: -3 },
+                { lines: ['take', 'the prod'], fill: 'url(#signWood)', w: 76, h: 36, fs: 13.5, tilt: 2 },
+                { lines: ['Agent work', 'w/ you'], fill: 'url(#signWood)', w: 86, h: 36, fs: 13, tilt: -2 },
+                { lines: ['2', 'clients'], fill: 'url(#signWood)', w: 66, h: 36, fs: 13.5, tilt: 3 },
+                { lines: ['$1B'], arrow: true, fill: 'url(#signWood)', w: 48, h: 24, fs: 17, tilt: -2 }
+            ];
+            // Keep the entire post-foot tuft off the road; use the same base for creek checks and drawing.
+            function signBaseY(x) { return trailY(x) - trailHalf(x) - 6; }
+
+            // The post base must stand on dry ground, not in a creek crossing the trail.
+            function baseClear(x) {
+                x = mod(x);
+                var y = signBaseY(x);
+                for (var i = 0; i < creeks.length; i++) {
+                    var c = creeks[i];
+                    if (y < creekTop(c)) continue;
+                    for (var s = -1; s <= 1; s++) {
+                        if (Math.abs(x + s * P - creekX(c, y)) < creekHalf(c, y) + 9) return false;
+                    }
+                }
+                return true;
+            }
+            var signSlots = planSigns.map(function (sg, i) {
+                // Start ahead of the rider and keep the final milestone near the end of the 24-second trip.
+                var x = P / 2 + 160 + i * ((JOURNEY_DISTANCE - 280) / (planSigns.length - 1));
+                for (var d = 0; d <= 60; d += 3) {
+                    if (baseClear(x + d)) { x += d; break; }
+                    if (baseClear(x - d)) { x -= d; break; }
+                }
+                return x;
+            });
+
+            function drawSign(sg, bx, ox) {
+                var n = near(bx);
+                var s = 0.8 + 0.4 * n;                 // perspective: bigger when nearer the viewer
+                var by = signBaseY(bx);               // post foot stands on the grassy shoulder
+                var postH = 12 + 6 * n;
+                var g = el('g', { transform: 'translate(' + (bx + ox).toFixed(1) + ',' + by.toFixed(1) + ') scale(' + s.toFixed(2) + ')' });
+                // grass tuft + shadow at the post foot
+                g.appendChild(el('ellipse', { cx: 0, cy: 0.5, rx: 8, ry: 2, fill: '#3b5b3c', opacity: '0.28' }));
+                g.appendChild(el('path', { d: 'M-7,1 L-8,-4 L-4,0 L-2,-6 L0,0 L3,-5 L4,0 L8,-4 L7,1 Z', fill: '#5c8c58' }));
+                // post
+                g.appendChild(el('rect', { x: -1.8, y: -postH - sg.h * 0.2, width: 3.6, height: postH + sg.h * 0.2, fill: '#7a5532' }));
+                g.appendChild(el('rect', { x: -1.8, y: -postH - sg.h * 0.2, width: 1.4, height: postH + sg.h * 0.2, fill: '#5c3d22' }));
+                // board
+                var bg = el('g', { transform: 'translate(0,' + (-postH - sg.h * 0.2 - sg.h / 2).toFixed(1) + ') rotate(' + sg.tilt + ')' });
+                var hw = sg.w / 2, hh = sg.h / 2, shape;
+                if (sg.arrow) {
+                    shape = 'M' + (-hw) + ',' + (-hh) + ' L' + (hw - 9) + ',' + (-hh) + ' L' + hw + ',0 L' + (hw - 9) + ',' + hh + ' L' + (-hw) + ',' + hh + ' Z';
+                } else {
+                    shape = 'M' + (-hw + 2) + ',' + (-hh) + ' L' + (hw - 2) + ',' + (-hh) + ' Q' + hw + ',' + (-hh) + ' ' + hw + ',' + (-hh + 2) +
+                        ' L' + hw + ',' + (hh - 2) + ' Q' + hw + ',' + hh + ' ' + (hw - 2) + ',' + hh + ' L' + (-hw + 2) + ',' + hh +
+                        ' Q' + (-hw) + ',' + hh + ' ' + (-hw) + ',' + (hh - 2) + ' L' + (-hw) + ',' + (-hh + 2) + ' Q' + (-hw) + ',' + (-hh) + ' ' + (-hw + 2) + ',' + (-hh) + ' Z';
+                }
+                bg.appendChild(el('path', { d: shape, fill: 'rgba(24,52,64,0.22)', transform: 'translate(1.6,1.8)' }));   // soft shadow
+                bg.appendChild(el('path', { d: shape, fill: sg.fill, stroke: '#624128', 'stroke-width': '1.8', 'stroke-linejoin': 'round' }));
+                // End grain, uneven fibers and a knot make each board look like cut timber.
+                [-0.72, -0.48, 0.48, 0.74].forEach(function (v, i) {
+                    var gy = hh * v;
+                    bg.appendChild(el('path', {
+                        d: 'M' + (-hw + 4) + ',' + gy + ' Q-8,' + (gy - 2 + i) + ' 6,' + gy + ' T' + (hw - 12) + ',' + (gy + 0.6),
+                        fill: 'none', stroke: i % 2 ? '#f0d09b' : '#845631', 'stroke-width': '0.65', opacity: '0.55'
+                    }));
+                });
+                bg.appendChild(el('ellipse', { cx: -hw + 8, cy: hh * 0.2, rx: 2.5, ry: 1.2, fill: 'none', stroke: '#845631', 'stroke-width': '0.7' }));
+                bg.appendChild(el('path', { d: 'M' + (-hw + 1) + ',' + (-hh + 5) + ' l7,1 -4,1 M' + (hw - 12) + ',' + (hh - 2) + ' l-6,-1', fill: 'none', stroke: '#6e4729', 'stroke-width': '0.8' }));
+                var n_lines = sg.lines.length, lh = sg.fs * 1.02;
+                sg.lines.forEach(function (ln, k) {
+                    var t = el('text', {
+                        x: sg.arrow ? -3 : 0, y: ((k - (n_lines - 1) / 2) * lh + sg.fs * 0.34).toFixed(1),
+                        'text-anchor': 'middle', 'font-size': sg.fs, 'font-family': SIGN_FONT, fill: '#432b19', stroke: '#efd3a0', 'stroke-width': '0.35', 'paint-order': 'stroke fill'
+                    });
+                    t.textContent = ln;
+                    bg.appendChild(t);
+                });
+                g.appendChild(bg);
+                signG.appendChild(g);
+            }
+
             [-P, 0, P].forEach(function (ox) {
                 meadowItems.forEach(function (it) { drawMeadow(it, ox); });
                 meadowItems.filter(function (it) { return it.t === 'p'; }).forEach(function (it) {
@@ -901,6 +1007,10 @@
                 });
                 creeks.forEach(function (c) { drawCreek(c, ox); });
                 drawRidge(ox);
+            });
+            planSigns.forEach(function (sg, i) {
+                var worldX = signSlots[i], localX = mod(worldX);
+                drawSign(sg, localX, worldX - localX);
             });
 
             // ---- Animate: scroll the world, moose follows the winding trail in depth ----
@@ -917,10 +1027,9 @@
                 }, delay);
             });
 
-            var offset = 0, last = null, t0 = null;
+            var offset = 0, distance = 0, last = null, t0 = null;
             function frame(ts) {
                 if (last === null) { last = ts; t0 = ts; }
-                var dt = Math.min(0.05, (ts - last) / 1000);
                 var el_t = (ts - t0) / 1000;
                 last = ts;
 
@@ -931,13 +1040,10 @@
                 var drift = reduceMotion ? 0 : Math.sin(el_t * 0.55) * Math.min(90 * sceneScale, window.innerWidth * 0.12);
                 var mx = mod(offset + (w / 2 + drift) / sx);
                 var n = near(mx);
-                var grade = (trailY(mx + 12) - trailY(mx - 12)) * sy / (24 * sx);
-
-                // Slower climbing, faster descending; slightly slower when far away (perspective)
-                var speed = Math.max(85, Math.min(200, 145 * (1 + 0.6 * grade))) * (0.7 + 0.4 * n);
                 var winter = scene.classList.contains('winter');
-                if (!winter && wadingAt(mx)) speed *= 0.55;
-                offset = mod(offset + speed * dt);
+                // A fixed journey clock spreads the unique milestones over the entire intro.
+                distance = reduceMotion ? 0 : JOURNEY_DISTANCE * Math.min(1, el_t / JOURNEY_SECONDS);
+                offset = mod(distance);
 
                 // Sample position, slope and water at the same point after scrolling.
                 mx = mod(offset + (w / 2 + drift) / sx);
@@ -951,6 +1057,7 @@
 
                 moose.classList.toggle('wading', wading);
                 track.setAttribute('transform', 'translate(' + (-offset).toFixed(2) + ',0)');
+                signG.setAttribute('transform', 'translate(' + (-distance).toFixed(2) + ',0)');
                 // The transform origin is at the wheels, 14px above the stage bottom.
                 moose.style.transform =
                     'translate(calc(-50% + ' + drift.toFixed(1) + 'px),' + ((trailY(mx) - H) * sy + 14 + (wading ? 4 * scale : 0)).toFixed(2) + 'px)' +
