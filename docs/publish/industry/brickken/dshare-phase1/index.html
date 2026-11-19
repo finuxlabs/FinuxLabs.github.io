@@ -298,7 +298,7 @@
       .flow li, .flow li + li { padding: 0; border-left: 0; }
     }
     @media (max-width: 420px) {
-      .facts { grid-template-columns: 1fr; gap: 14px; }
+      .facts { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
       .actions { display: grid; gap: 8px; }
     }
     @media print {
