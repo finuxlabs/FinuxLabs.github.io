@@ -7,6 +7,7 @@
 <style>
 :root{color-scheme:light;--ink:#172e41;--muted:#4d6173;--rule:#d8e2e9;--blue:#20598c;--deep:#17364d;--teal:#17624d;--paper:#fff;--soft:#f4f7fa}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#edf2f5;color:var(--ink);font:16px/1.55 "Aptos","Segoe UI",system-ui,sans-serif}a{color:#185d91;text-underline-offset:3px}a:focus-visible{outline:2px solid #266290;outline-offset:3px}.page{max-width:1130px;margin:36px auto;background:var(--paper);border:1px solid var(--rule);border-radius:18px;overflow:hidden}.cover{padding:52px 58px 35px;background:linear-gradient(114deg,#f4f8fc,#e8f3ee);border-bottom:1px solid var(--rule)}.brand{color:var(--teal);text-transform:uppercase;letter-spacing:.12em;font-size:.75rem;font-weight:750}.cover h1{font-size:clamp(2.4rem,5.2vw,4rem);line-height:1.04;letter-spacing:-.045em;margin:.20em 0 .2em;max-width:800px}.subtitle{font-size:clamp(1.05rem,2.1vw,1.28rem);color:#36546c;margin:0}.cover-summary{max-width:76ch;margin:22px 0 0}.metrics{display:grid;grid-template-columns:repeat(3,1fr);margin-top:26px;border-top:1px solid #cedde3;padding-top:16px;gap:12px}.metric{display:grid;gap:0}.metric strong{font-size:1.4rem;line-height:1.2}.metric span{color:var(--muted);font-size:.84rem}nav{padding:15px 58px;border-bottom:1px solid var(--rule);display:flex;gap:9px 24px;flex-wrap:wrap;font-size:.87rem;font-weight:620}main{padding:0 58px 34px}section{padding:29px 0;border-bottom:1px solid var(--rule);scroll-margin-top:15px}section:last-child{border:0}h2{font-size:1.75rem;line-height:1.18;letter-spacing:-.027em;margin:0 0 14px}h3{font-size:1.17rem;line-height:1.3;margin:24px 0 8px}p{margin:0 0 11px}p:last-child{margin-bottom:0}ul,ol{margin:6px 0 12px;padding-left:23px}li+li{margin-top:5px}.callout{border-left:4px solid #5b9a86;background:#edf7f2;padding:12px 15px;margin:15px 0;color:#204838}.table-scroll{overflow-x:auto;margin:13px 0 16px}table{width:100%;border-collapse:collapse;text-align:left;font-size:.91rem}th,td{padding:9px 11px;border-bottom:1px solid #dce5eb;vertical-align:top}th{background:#eaf1f7;color:#24475f;font-weight:700}tr:nth-child(even) td{background:#f8fafb}th:first-child,td:first-child{min-width:145px}.compact td,.compact th{padding:8px 10px}.figure{margin:12px 0 20px;padding:10px 12px 12px;border:1px solid var(--rule);border-radius:13px;background:#fff;overflow-x:auto}.figure svg{width:100%;min-width:710px;height:auto;display:block}.figure figcaption{font-size:.87rem;color:var(--muted);margin:6px 6px 2px}.d-title{font-size:16px;fill:#172e41;font-weight:700}.d-sub{font-size:12.4px;fill:#425a6d}.d-label,.d-line-label,.d-note{font-size:12.5px;fill:#314b61}.d-line-label{paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round;font-weight:600}.d-smallcaps{font-size:13px;fill:#416079;font-weight:700}.d-note{fill:#4a6174}.legend{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:.82rem;margin:0 0 8px}.legend span:before{content:"";display:inline-block;width:9px;height:9px;border:1px solid #9aadb5;border-radius:3px;margin-right:6px;background:var(--key)}.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}.panel{background:var(--soft);border:1px solid var(--rule);border-radius:10px;padding:14px 16px}.panel h3{margin:0 0 8px}code{background:#edf2f6;color:#193c55;padding:.06em .28em;border-radius:4px;font-size:.9em;overflow-wrap:anywhere}.references{font-size:.9rem;color:var(--muted)}.references a{font-weight:640}.small{font-size:.87rem;color:var(--muted)}
+.figure img{width:100%;height:auto;display:block}
 @media(max-width:760px){.page{margin:0;border:0;border-radius:0}.cover,nav,main{padding-left:22px;padding-right:22px}.cover{padding-top:35px}.metrics{gap:8px}.metric strong{font-size:1.14rem}.metric span{font-size:.77rem}.two{grid-template-columns:1fr}td,th{min-width:145px}.figure{padding:8px}}
 @media print{@page{size:A4;margin:14mm}body{background:#fff;font-size:10.3pt}*{print-color-adjust:exact;-webkit-print-color-adjust:exact}.page{margin:0;border:0;border-radius:0;overflow:visible;max-width:none}.cover{padding:18px 19px}nav{display:none}main{padding:0}.figure,.table-scroll{overflow:visible}.figure{break-inside:avoid;margin:7px 0 12px}.figure svg{min-width:0}section{padding:14px 0}.cover h1{font-size:35pt}h2,h3{break-after:avoid}thead{display:table-header-group}tr,.panel,.callout{break-inside:avoid}.two{grid-template-columns:1fr 1fr}.metrics{margin-top:15px}}
 </style>
@@ -24,7 +25,7 @@
     <div class="metric"><strong>0</strong><span>remaining mint capacity on CC-001</span></div>
   </div>
 </header>
-<nav aria-label="Report contents"><a href="#scope">Programme scope</a><a href="#actors">Actors</a><a href="#platform">Tokens and DLT</a><a href="#architecture">C4 diagrams</a><a href="#entities">Business objects</a><a href="#tools">Applications</a><a href="#delivery">Implementation</a><a href="#sources">References</a></nav>
+<nav aria-label="Report contents"><a href="#scope">Programme scope</a><a href="#actors">Actors</a><a href="#platform">Tokens and DLT</a><a href="#architecture">C4 diagrams</a><a href="#entities">Business objects</a><a href="#tools">Applications</a><a href="#delivery">Implementation</a><a href="#sources">References</a><a href="#market-venue">Market venue</a></nav>
 <main>
 <section id="scope">
   <h2>Programme scope</h2>
@@ -139,7 +140,7 @@
 <text x="154.5" y="205.0" text-anchor="middle" class="d-sub">React + TypeScript</text>
 <rect x="365" y="151" width="230" height="76" rx="10" fill="#eaf2fb" stroke="#819bb9"/>
 <text x="480.0" y="186.0" text-anchor="middle" class="d-title">Workflow API</text>
-<text x="480.0" y="205.0" text-anchor="middle" class="d-sub">Spring Boot · HTTP + signed intake</text>
+<text x="480.0" y="205.0" text-anchor="middle" class="d-sub">Technology-neutral API · signed intake</text>
 <rect x="690" y="151" width="232" height="76" rx="10" fill="#f2edf9" stroke="#ad96c7"/>
 <text x="806.0" y="186.0" text-anchor="middle" class="d-title">Evidence vault</text>
 <text x="806.0" y="205.0" text-anchor="middle" class="d-sub">Encrypted object storage</text>
@@ -443,6 +444,16 @@
     <li>Typed structured signatures, Ethereum test networks and consensus finality. <a href="https://eips.ethereum.org/EIPS/eip-712">EIP-712</a> · <a href="https://ethereum.org/developers/docs/networks/">Ethereum networks</a> · <a href="https://ethereum.org/developers/docs/consensus-mechanisms/pos/">Ethereum proof of stake</a></li>
     <li>Depositary receipt example for future surrender and share delivery. <a href="https://www.sec.gov/Archives/edgar/data/2095096/000095012726000037/a_form_of_deposit_agreement.htm">Form of deposit agreement filed with the SEC</a></li>
   </ul>
+</section>
+
+<section id="market-venue">
+  <h2>Market venue view</h2>
+  <p>The white-label market architecture starts with custody-backed issuance and the HSDR register, then shows potential extensions into secondary trading, liquidity, redemption and liquidation.</p>
+  <figure class="figure">
+    <img src="d-SHARE-White-Label-Market-Architecture.png" alt="d-SHARE market architecture: Phase 1 connects an authorized participant, broker and custodian, issuer or depositary, and the on-chain HSDR register. Later phases show an order-book venue or permissioned AMM, clearing and depository, holder balances, and redemption or liquidation paths." width="3360" height="2640" loading="lazy" decoding="async">
+    <figcaption>Phase 1 is limited to backing and issuance. The secondary venue, liquidity mechanisms, clearing and redemption paths are later-phase capabilities in this strategy view.</figcaption>
+  </figure>
+  <p><strong>Market strategy.</strong> Extend the same receipt register into eligible secondary trading only after defining venue access, settlement, and controls. The diagram presents the order book and permissioned AMM as market-venue options, with eligibility and surveillance, backing reconciliation, and holder servicing as lifecycle controls.</p>
 </section>
 </main>
 </div>

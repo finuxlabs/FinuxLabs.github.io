@@ -153,6 +153,18 @@
       margin: 0 0 21px;
       color: var(--muted);
     }
+    .market-figure { margin: 20px 0 12px; }
+    .market-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--rule);
+    }
+    .market-figure figcaption {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: .88rem;
+    }
     .issuance {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -341,6 +353,7 @@
       <a href="#workflow">How it works</a>
       <a href="#interfaces">Pilot interfaces</a>
       <a href="#later-phases">Later phases</a>
+      <a href="#market-venue">Market venue</a>
     </nav>
 
     <main>
@@ -429,6 +442,16 @@
             <p class="footnote">Record the settled release against CC-001. Mint capacity stays at zero. Keep the original certificate for audit and close it after the final share release.</p>
           </article>
         </div>
+      </section>
+
+      <section id="market-venue">
+        <h2>Market venue view</h2>
+        <p class="section-lead">The white-label market architecture starts with custody-backed issuance and a shared HSDR register, with possible paths for secondary trading, liquidity, redemption and liquidation.</p>
+        <figure class="market-figure">
+          <img src="d-SHARE-White-Label-Market-Architecture.png" alt="d-SHARE market architecture: Phase 1 connects an authorized participant, broker and custodian, issuer or depositary, and the on-chain HSDR register. Later phases show an order-book venue or permissioned AMM, clearing and depository, holder balances, and redemption or liquidation paths." width="3360" height="2640" loading="lazy" decoding="async">
+          <figcaption>Phase 1 establishes backing and issuance. Trading, liquidity, redemption and liquidation are shown as later-phase capabilities.</figcaption>
+        </figure>
+        <p class="footnote">The order book and permissioned AMM are market-venue options in the architecture view. Eligibility and surveillance, backing reconciliation, and holder servicing apply across the lifecycle.</p>
       </section>
     </main>
 
